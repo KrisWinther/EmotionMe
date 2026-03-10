@@ -1,0 +1,13 @@
+package com.emotionme.stable
+
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+
+class BootReciever: BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
+            NotificationScheduler.rescheduleFromSettings(context)
+        }
+    }
+}

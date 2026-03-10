@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.EmotionMe" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="TimePickerTheme">
+        <!-- Цвет выделенного числа, стрелки часов и точек (двоеточия) -->
+        <item name="colorControlActivated">@color/black</item>
+        <!-- Цвет неактивных чисел и текста -->
+        <item name="android:textColorPrimary">@color/lavender</item>
+        <!-- Цвет цифр на циферблате в режиме часов -->
+        <item name="android:textColorSecondary">@color/black</item>
+        <!-- Цвет фона (заголовка или всего виджета в зависимости от режима) -->
+        <item name="colorAccent">@color/white</item>
+    </style>
+
+    <style name="Theme.EmotionMe" parent="Base.Theme.EmotionMe" />
+</resources>

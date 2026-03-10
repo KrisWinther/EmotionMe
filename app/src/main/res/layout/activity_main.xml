@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_lavender"
+    tools:context=".MainActivity">
+
+    <FrameLayout
+        android:id="@+id/main_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lavender"
+        android:paddingTop="27dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:layout_marginStart="15dp"
+            android:padding="10dp"
+            android:text="Главная"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:backgroundTint="@color/lavender"
+            android:gravity="center"
+            android:text="≡"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="87dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:orientation="vertical"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp">
+
+            <FrameLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:background="@drawable/field_light"
+                android:padding="10dp"
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🌟 Опиши свой момент"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="20sp"/>
+            </FrameLayout>
+
+            <Spinner
+                android:id="@+id/spinnerMood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/field_light"
+                android:popupBackground="@drawable/field_light"/>
+
+            <Spinner
+                android:id="@+id/spinnerPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_marginTop="10dp"
+                android:popupBackground="@drawable/field_light"
+                android:background="@drawable/field_light"/>
+
+            <Spinner
+                android:id="@+id/spinnerWeather"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:popupBackground="@drawable/field_light"
+                android:scrollbarSize="100dp"
+                android:padding="20dp"
+                android:background="@drawable/field_light"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:id="@+id/etNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Здесь можно оставить заметку"
+                android:padding="20dp"
+                android:textColorHint="@color/grey"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/field_light"/>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/lavender"
+                android:text="💾 Сохранить"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:text="📊 Статистика"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:text="💭 Заметки"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/black">
+
+                <TextView
+                    android:id="@+id/showMotivation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="20dp"
+                    android:text="@string/app_name"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/field_light"
+                    android:gravity="center"
+                    android:layout_margin="15dp"/>
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

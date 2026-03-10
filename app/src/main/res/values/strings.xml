@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">EmotionMe</string>
+    <!--  Auth  -->
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="hint_login">Логин или электронная почта</string>
+    <string name="hint_password">Пароль</string>
+    <string name="btn_login">Войти // 🔐</string>
+    <string name="btn_register">Регистрация</string>
+    <string name="track_mood">Track your mood</string>
+    <string name="error_fill_fields">Заполните поля!</string>
+    <string name="error_wrong_credentials">Неверный логин или пароль</string>
+    <string name="error_user_exists">Пользователь уже существует!</string>
+    <!--  Main  -->
+    <string name="screen_main">Главная</string>
+    <string name="describe_moment">Опиши свой момент</string>
+    <string name="hint_note">Здесь можно оставить заметку…</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="btn_stats">Статистика</string>
+    <string name="saved">Запись сохранена</string>
+    <!--  Moods  -->
+    <string name="mood_joy">😊 Радость</string>
+    <string name="mood_neutral">😐 Нейтрально</string>
+    <string name="mood_sad">😢 Грусть</string>
+    <string name="mood_angry">😡 Злость</string>
+    <!--  Places  -->
+    <string name="place_home">Дом</string>
+    <string name="place_work">Учёба / Работа</string>
+    <string name="place_walk">Прогулка</string>
+    <!--  Weather  -->
+    <string name="weather_clear">Ясно</string>
+    <string name="weather_cloudy">Пасмурно</string>
+    <string name="weather_bad">Непогода</string>
+    <!--  Motivation — bad  -->
+    <string name="motiv_bad_1">Ты справишься!</string>
+    <string name="motiv_bad_2">Не сдавайся, ты не один.</string>
+    <string name="motiv_bad_3">Даже трудные дни проходят.</string>
+    <string name="motiv_bad_4">Не переживай, работа принесёт свои плоды.</string>
+    <!--  Motivation — good  -->
+    <string name="motiv_good_1">Превосходный день, так держать! ❤️</string>
+    <string name="motiv_good_2">Хорошо идём, пусть дальше будет также хорошо! 🤞</string>
+    <string name="motiv_good_3">Пусть завтрашний день будет таким же хорошим. 🤩</string>
+    <!--  Statistics  -->
+    <string name="screen_stats">Статистика</string>
+    <string name="period_day">День</string>
+    <string name="period_week">Неделя</string>
+    <string name="period_month">Месяц</string>
+    <string name="chart_mood">Настроение</string>
+    <string name="chart_location">Местоположение</string>
+    <string name="chart_weather">Погода</string>
+    <!--  Settings  -->
+    <string name="screen_settings">Настройки</string>
+    <string name="notifications">Уведомления</string>
+    <string name="notification_time">Время уведомлений</string>
+    <string name="btn_logout">Выйти из аккаунта</string>
+    <string name="notification_status_changed">Статус уведомлений изменён!</string>
+    <string name="label_theme">Тема оформления</string>
+    <string name="label_language">Язык</string>
+    <!--  Themes  -->
+    <string name="theme_purple">Фиолетовый</string>
+    <string name="theme_orange">Оранжевый</string>
+    <string name="theme_blue">Синий</string>
+    <string name="theme_mono">Монохромный</string>
+    <string name="theme_green">Зелёный</string>
+    <!--  Languages  -->
+    <string name="lang_russian">Русский</string>
+    <string name="lang_english">English</string>
+</resources>
