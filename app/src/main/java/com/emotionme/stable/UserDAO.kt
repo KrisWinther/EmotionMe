@@ -19,4 +19,7 @@ interface UserDAO {
         LIMIT 1
     """)
     fun login(login: String, password: String): User?
+
+    @Query("SELECT * FROM User WHERE id = :id LIMIT 1")
+    fun getById(id: Long) :User?
 }
