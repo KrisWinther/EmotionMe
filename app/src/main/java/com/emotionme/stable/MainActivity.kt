@@ -38,6 +38,35 @@ class MainActivity : AppCompatActivity() {
         val btnNotes = findViewById<Button>(R.id.btnNotes)
         val btnSettings = findViewById<Button>(R.id.btnSettings)
         val showMotivation = findViewById<TextView>(R.id.showMotivation)
+        val scrollView = findViewById<ScrollView>(R.id.scroll)
+
+        etNote.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                scrollView.post {
+                    scrollView.fullScroll(View.FOCUS_DOWN)
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        Thread {
+            val user = db.userDao().getById(userId)
+            val name = user?.login
+            val greeting = listOf(
+                "Доброго дня, $name!",
+                "Как проходит день, $name?",
+                "Привет, $name!",
+                "Добро пожаловать, $name!",
+                "Рады видеть тебя, $name!",
+                "Как настроение, $name?",
+                "$name! А вот и ты!"
+            ).random()
+
+            runOnUiThread {
+                greets.text = greeting
+            }
+        }.start()
 
         Thread {
             val dayAgo = System.currentTimeMillis() - 24 * 60 * 60 * 1000
