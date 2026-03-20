@@ -1,0 +1,57 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape
+            android:layout_height="match_parent"
+            android:shape="rectangle">
+            <gradient
+                android:angle="315"
+                android:endColor="#FFFFFF"
+                android:startColor="#EAF3FF"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <item android:gravity="top|end">
+        <shape android:shape="oval">
+            <size
+                android:width="300dp"
+                android:height="300dp" />
+            <gradient
+                android:centerX="0.5"
+                android:centerY="0.5"
+                android:endColor="#004FC3F7"
+                android:gradientRadius="200dp"
+                android:startColor="#804FC3F7"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <item android:gravity="bottom|start">
+        <shape android:shape="oval">
+            <size
+                android:width="280dp"
+                android:height="280dp" />
+            <gradient
+                android:endColor="#00FFB74D"
+                android:gradientRadius="200dp"
+                android:startColor="#80FFB74D"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Лёгкое фиолетовое пятно -->
+    <item android:gravity="center">
+        <shape android:shape="oval">
+            <size
+                android:width="250dp"
+                android:height="250dp" />
+            <gradient
+                android:endColor="#006A5AE0"
+                android:gradientRadius="180dp"
+                android:startColor="#806A5AE0"
+                android:type="radial" />
+        </shape>
+    </item>
+
+</layer-list>
