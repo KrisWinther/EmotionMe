@@ -3,6 +3,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="grey">#FF9E9E9E</color>
+    <color name="dark_grey">#454545</color>
     <color name="decorative_white">#FFFFFFFF</color>
     <!--  Тема 1: Фиолетовый (по умолчанию)  -->
     <color name="purple_primary">#8860D0</color>
