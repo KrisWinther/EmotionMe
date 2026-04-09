@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_lavender"
+    android:background="@drawable/background"
     android:orientation="vertical"
     android:padding="25dp"
     android:layout_gravity="center">
@@ -12,14 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="120dp"
-        android:background="@drawable/field_light">
+        android:layout_marginTop="150dp"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/icon_bg">
 
         <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_margin="15dp"
-            android:background="@mipmap/emotionme_2_0" />
+            android:background="@mipmap/emotionme_v11" />
     </FrameLayout>
 
 
@@ -29,26 +30,18 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="EmotionMe"
-        android:fontFamily="@font/pixel"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
-        android:textColor="@color/lavender"
-        android:textSize="30sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Track your mood"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="normal" />
+        android:textSize="45sp" />
+
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/white"
+        android:layout_marginTop="50dp"
         android:background="@drawable/field_light">
 
         <TextView
@@ -67,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/white"
         android:background="@drawable/field_light"
         android:paddingStart="20dp"
         android:paddingEnd="20dp">
@@ -77,6 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:hint="Логин"
+            android:inputType="text"
+            android:backgroundTint="@color/lavender"
             android:padding="15dp"
             android:textColorHint="@color/grey"
             android:layout_margin="5dp"
@@ -97,6 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Пароль"
+            android:backgroundTint="@color/lavender"
             android:textColorHint="@color/grey"
             android:inputType="textPassword"
             android:padding="15dp"
@@ -105,7 +102,7 @@
             app:layout_constraintTop_toTopOf="@id/etLogin" />
     </FrameLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -114,13 +111,14 @@
         android:textColor="@color/white"
         android:backgroundTint="@color/black"
         android:gravity="center"
-        android:text="Войти // 🔐"
+        android:text="🔑 Войти"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
+        app:cornerRadius="15dp"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_marginStart="50dp"
@@ -129,5 +127,17 @@
         android:layout_gravity="center"
         android:textColor="@color/white"
         android:backgroundTint="@color/lavender"
-        android:text="Регистрация" />
+        android:text="Регистрация"
+        app:cornerRadius="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Новый пользователь? Кликните сюда, чтобы создать аккаунт"
+        android:textColor="@color/dark_grey"
+        android:textSize="12sp"/>
+
 </LinearLayout>

@@ -37,6 +37,41 @@ interface MoodDAO {
     """)
     fun getWeatherStatsFrom(uid: Long, from: Long): List<StatItem>
 
+    // ---------- Range (from..to) ----------
+
+    @Query("""
+        SELECT mood AS label, COUNT(*) AS count
+        FROM mood_entries
+        WHERE userId = :uid AND timestamp >= :from AND timestamp < :to
+        GROUP BY mood
+    """)
+    fun getMoodStatsRange(uid: Long, from: Long, to: Long): List<StatItem>
+
+    @Query("""
+        SELECT location AS label, COUNT(*) AS count
+        FROM mood_entries
+        WHERE userId = :uid AND timestamp >= :from AND timestamp < :to
+        GROUP BY location
+    """)
+    fun getLocationStatsRange(uid: Long, from: Long, to: Long): List<StatItem>
+
+    @Query("""
+        SELECT weather AS label, COUNT(*) AS count
+        FROM mood_entries
+        WHERE userId = :uid AND timestamp >= :from AND timestamp < :to
+        GROUP BY weather
+    """)
+    fun getWeatherStatsRange(uid: Long, from: Long, to: Long): List<StatItem>
+
+    // Доминирующая эмоция по дню, группировка
+
+    @Query("""
+        SELECT * FROM mood_entries
+        WHERE userId = :uid AND timestamp >= :from AND timestamp < :to
+        ORDER BY timestamp ASC
+    """)
+    fun getEntriesRange(uid: Long, from: Long, to: Long): List<MoodEntry>
+
     // ---------- Insert ----------
 
     @Insert
@@ -49,10 +84,11 @@ interface MoodDAO {
         AND timestamp >= :from
         GROUP BY mood
     """)
-
     fun getStatsFrom(uid: Long, from: Long): List<MoodStat>
 
     @Query("SELECT * FROM mood_entries WHERE userId = :userId ORDER BY timestamp DESC")
-
     fun getAll(userId: Long): List<MoodEntry>
+
+    @Query("UPDATE mood_entries SET note = '' WHERE id = :entryId")
+    fun clearNote(entryId: Int)
 }

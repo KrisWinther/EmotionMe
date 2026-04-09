@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import java.util.concurrent.Executors
 import androidx.core.content.edit
+import com.google.android.material.snackbar.Snackbar
+import java.util.concurrent.Executors
 
 class AuthActivity : AppCompatActivity() {
 
@@ -20,6 +21,7 @@ class AuthActivity : AppCompatActivity() {
             return
         }
 
+        enableEdgeToEdge()
         setContentView(R.layout.activity_auth)
 
         val etLogin = findViewById<EditText>(R.id.etLogin)
@@ -31,12 +33,15 @@ class AuthActivity : AppCompatActivity() {
         val userDao = db.userDao()
         val executor = Executors.newSingleThreadExecutor()
 
+        fun snack(message: String) =
+            Snackbar.make(btnLogin, message, Snackbar.LENGTH_SHORT).show()
+
         btnLogin.setOnClickListener {
             val login = etLogin.text.toString()
             val password = etPassword.text.toString()
 
             if (login.isBlank() || password.isBlank()) {
-                Toast.makeText(this, "Заполните поля \uD83D\uDCAD", Toast.LENGTH_SHORT).show()
+                snack("Заполните все поля 💬")
                 return@setOnClickListener
             }
 
@@ -49,19 +54,18 @@ class AuthActivity : AppCompatActivity() {
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     } else {
-                        Toast.makeText(this, "Неверный логин или пароль ❌", Toast.LENGTH_SHORT).show()
+                        snack("Неверный логин или пароль ❌")
                     }
                 }
             }
         }
 
-        // Registration
         btnRegister.setOnClickListener {
             val login = etLogin.text.toString()
             val password = etPassword.text.toString()
 
             if (login.isBlank() || password.isBlank()) {
-                Toast.makeText(this, "Заполните поля ❌", Toast.LENGTH_SHORT).show()
+                snack("Заполните поля ❌")
                 return@setOnClickListener
             }
 
@@ -69,17 +73,9 @@ class AuthActivity : AppCompatActivity() {
                 val exists = userDao.getByLogin(login)
 
                 if (exists != null) {
-                    runOnUiThread {
-                        Toast.makeText(this, "Пользователь уже существует ❌", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+                    runOnUiThread { snack("Пользователь уже существует ❌") }
                 } else {
-                    val id = userDao.insert(
-                        User(
-                            login = login,
-                            password = password
-                        )
-                    )
+                    val id = userDao.insert(User(login = login, password = password))
 
                     runOnUiThread {
                         SessionManager.saveUser(this, id)

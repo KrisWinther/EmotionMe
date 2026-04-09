@@ -2,13 +2,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_lavender">
-    <!--  Header  -->
+    android:background="@drawable/background">
+
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lavender"
+        android:background="@drawable/field_frame_2"
+        android:backgroundTint="@color/lavender"
         android:paddingTop="27dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,23 +19,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="17dp"
             android:text="💭 Заметки"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
 
-        <Button
+        <TextView
             android:id="@+id/btnBackNotes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
             android:backgroundTint="@color/lavender"
-            android:text="≡"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:padding="10dp"
+            android:layout_marginEnd="12dp"
+            app:drawableTint="@color/white"
+            app:drawableEndCompat="@drawable/outline_arrow_back_ios_new_24" />
     </FrameLayout>
-    <!--  Content  -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -48,48 +52,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!--  Переключатель периода — точно как в StatisticsActivity  -->
-            <RadioGroup
-                android:id="@+id/rgPeriodNotes"
-                android:layout_width="wrap_content"
+
+            <Spinner
+                android:id="@+id/spinnerNote"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/field_light"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:popupBackground="@drawable/field_scroll"
+                android:scrollbarSize="100dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:gravity="center"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/field_scroll" />
 
-                <RadioButton
-                    android:id="@+id/rbNoteDay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="День"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/rbNoteWeek"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="Неделя"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/rbNoteMonth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="Месяц"
-                    android:textColor="@color/black"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </RadioGroup>
-            <!--  Список заметок  -->
             <LinearLayout
                 android:id="@+id/notesContainer"
                 android:layout_width="match_parent"

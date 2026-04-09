@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/light_lavender"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/main_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lavender"
+        android:background="@drawable/field_frame_2"
+        android:backgroundTint="@color/lavender"
         android:paddingTop="27dp"
         tools:ignore="MissingConstraints">
 
@@ -19,22 +20,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
-            android:layout_marginStart="15dp"
-            android:text="Настройки"
+            android:layout_marginStart="17dp"
+            android:text="⚙️ Настройки"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
 
-        <Button
+        <TextView
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
             android:backgroundTint="@color/lavender"
             android:gravity="center"
-            android:text="≡"
-            android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:padding="10dp"
+            android:layout_marginEnd="12dp"
+            app:drawableTint="@color/white"
+            app:drawableEndCompat="@drawable/outline_arrow_back_ios_new_24" />
     </FrameLayout>
 
     <ScrollView
@@ -54,9 +57,9 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/field_light"
-                android:padding="15dp">
+                android:padding="10dp">
 
-                <Switch
+                <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/notification_switcher"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -66,7 +69,6 @@
                     android:textSize="17sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:thumbTint="@color/lavender"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
             </FrameLayout>
 
@@ -109,40 +111,44 @@
 
             </FrameLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPasswordActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="Изменить пароль"
+                android:textColor="@color/white"
+                android:textStyle="normal"
+                android:backgroundTint="@color/lavender"
+                app:cornerRadius="15dp"/>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:backgroundTint="@color/white"
                 android:gravity="center"
-                android:padding="1dp"
                 android:textStyle="normal"
                 android:text="Выйти из аккаунта"
                 android:textColor="#F00"
-                android:textSize="20sp" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:background="@drawable/field_light"
-                android:backgroundTint="@color/white"
-                android:padding="2dp">
+                app:cornerRadius="15dp" />
 
                 <TextView
+                    android:id="@+id/versionTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="15dp"
                     android:background="@drawable/field_light"
                     android:gravity="center"
-                    android:text="Версия 26.03.1 (1.1.1A)"
+                    android:text="Версия 26.4.6 (v1.2.3beta)"
                     android:textColor="@color/black"
                     android:textSize="15sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
+                    android:textStyle="bold"
+                    android:padding="15dp"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

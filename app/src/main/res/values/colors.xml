@@ -1,26 +1,19 @@
 <resources>
-    <!--  Общие  -->
     <color name="white">#FFFFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="grey">#FF9E9E9E</color>
     <color name="dark_grey">#454545</color>
     <color name="decorative_white">#FFFFFFFF</color>
-    <!--  Тема 1: Фиолетовый (по умолчанию)  -->
     <color name="purple_primary">#8860D0</color>
     <color name="purple_background">#FBEBFC</color>
-    <!--  Тема 2: Оранжевый  -->
     <color name="orange_primary">#FF7D03</color>
     <color name="orange_background">#FCEDDC</color>
-    <!--  Тема 3: Синий  -->
     <color name="blue_primary">#5AB9EA</color>
     <color name="blue_background">#e8f7ff</color>
-    <!--  Тема 4: Монохромный  -->
     <color name="mono_primary">#FF000000</color>
     <color name="mono_background">#DBDAD9</color>
-    <!--  Тема 5: Зелёный  -->
     <color name="green_primary">#3DAA6A</color>
     <color name="green_background">#DFF5E8</color>
-    <!--  Алиасы (используются в layouts, меняются через атрибуты темы)  -->
     <color name="lavender">#476fff</color>
     <color name="light_lavender">#e8f7ff</color>
 </resources>

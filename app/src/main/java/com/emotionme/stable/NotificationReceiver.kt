@@ -3,6 +3,7 @@ package com.emotionme.stable
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -18,12 +19,21 @@ class NotificationReceiver : BroadcastReceiver() {
         val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
         if (!prefs.getBoolean("notify_enabled", true)) return
 
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(
+            context, 0, intent, PendingIntent.FLAG_IMMUTABLE
+        )
+
         createNotificationChannel(context)
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.mipmap.emotionme_2_0)
+            .setSmallIcon(R.mipmap.emotionme_v11)
             .setContentTitle("Как проходит день? ")
-            .setContentText("Не забудь отметить настроение 😊")
+            .setContentText("Не забудь отметить настроение в приложении 😊")
+            .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .build()

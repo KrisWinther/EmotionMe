@@ -1,5 +1,6 @@
 package com.emotionme.stable
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -22,4 +23,7 @@ interface UserDAO {
 
     @Query("SELECT * FROM User WHERE id = :id LIMIT 1")
     fun getById(id: Long) :User?
+
+    @Query("UPDATE User SET password = :newPassword WHERE id = :id")
+    fun updatePassword(id: Long, newPassword: String)
 }
