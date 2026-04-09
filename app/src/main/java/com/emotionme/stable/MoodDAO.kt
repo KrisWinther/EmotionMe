@@ -7,7 +7,7 @@ import androidx.room.Query
 @Dao
 interface MoodDAO {
 
-    // ---------- Mood ----------
+    // Mood
 
     @Query("""
         SELECT mood AS label, COUNT(*) AS count
@@ -17,7 +17,7 @@ interface MoodDAO {
     """)
     fun getMoodStatsFrom(uid: Long, from: Long): List<StatItem>
 
-    // ---------- Location ----------
+    // Location
 
     @Query("""
         SELECT location AS label, COUNT(*) AS count
@@ -27,7 +27,7 @@ interface MoodDAO {
     """)
     fun getLocationStatsFrom(uid: Long, from: Long): List<StatItem>
 
-    // ---------- Weather ----------
+    // Weather
 
     @Query("""
         SELECT weather AS label, COUNT(*) AS count
@@ -36,8 +36,6 @@ interface MoodDAO {
         GROUP BY weather
     """)
     fun getWeatherStatsFrom(uid: Long, from: Long): List<StatItem>
-
-    // ---------- Range (from..to) ----------
 
     @Query("""
         SELECT mood AS label, COUNT(*) AS count
@@ -71,8 +69,6 @@ interface MoodDAO {
         ORDER BY timestamp ASC
     """)
     fun getEntriesRange(uid: Long, from: Long, to: Long): List<MoodEntry>
-
-    // ---------- Insert ----------
 
     @Insert
     fun insert(entry: MoodEntry)
