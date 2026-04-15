@@ -35,7 +35,7 @@
 ### ├── PasswordActivity.kt // Изменение пароля
 ### ├── SessionManager.kt // Управление сессией
 ### ├── NotificationScheduler.kt // Планирование уведомлений
-### ├── CalendarView.kt // Кастомный виджет - календарь
+### ├── MoodCalendarView.kt // Кастомный виджет - календарь
 ### └── StatsChartView.kt // Кастомная диаграмма
 
 ## Лицензия
