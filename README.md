@@ -26,15 +26,17 @@
 ## Структура проекта
 
 ### app/src/main/java/com/emotionme/stable/
-### ├── AppDatabase.kt        // Room (база данных)
-### ├── AuthActivity.kt       // Авторизация / регистрация
-### ├── MainActivity.kt       // Главный экран
-### ├── NotesActivity.kt      // История заметок
+### ├── AppDatabase.kt // Room (база данных)
+### ├── AuthActivity.kt // Авторизация / регистрация
+### ├── MainActivity.kt // Главный экран
+### ├── NotesActivity.kt // История заметок
 ### ├── StatisticsActivity.kt // Статистика
-### ├── SettingsActivity.kt   // Настройки
-### ├── SessionManager.kt     // Управление сессией
+### ├── SettingsActivity.kt // Настройки
+### ├── PasswordActivity.kt // Изменение пароля
+### ├── SessionManager.kt // Управление сессией
 ### ├── NotificationScheduler.kt // Планирование уведомлений
-### └── StatsChartView.kt     // Кастомная диаграмма
+### ├── CalendarView.kt // Кастомный виджет - календарь
+### └── StatsChartView.kt // Кастомная диаграмма
 
 ## Лицензия
 
