@@ -1,8 +1,12 @@
 package com.emotionme.stable
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -35,6 +39,13 @@ class StatisticsActivity : AppCompatActivity() {
         val locationTV = findViewById<TextView>(R.id.locationTV)
         val weatherTV = findViewById<TextView>(R.id.weatherTV)
         val calendarTV = findViewById<TextView>(R.id.calendarTV)
+        val spot1 = findViewById<View>(R.id.spot1)
+        val spot2 = findViewById<View>(R.id.spot2)
+        val spot3 = findViewById<View>(R.id.spot3)
+
+        startFloatingAnimation(spot1, 7000)
+        startFloatingAnimation(spot2, 9000)
+        startFloatingAnimation(spot3, 12000)
 
         moodTV.setOnClickListener {
             Snackbar.make(
@@ -165,6 +176,27 @@ class StatisticsActivity : AppCompatActivity() {
 
         btnBackCharts.setOnClickListener {
             finish()
+        }
+    }
+
+    fun startFloatingAnimation(view: View, duration: Long) {
+        val animX = ObjectAnimator.ofFloat(view, "translationX", -150f, 150f).apply {
+            this.duration = duration
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
+            this.duration = duration + 1000 // Разная скорость для естественности
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        AnimatorSet().apply {
+            playTogether(animX, animY)
+            start()
         }
     }
 }

@@ -1,7 +1,13 @@
 package com.emotionme.stable
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +18,7 @@ import java.util.concurrent.Executors
 
 class AuthActivity : AppCompatActivity() {
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,6 +35,13 @@ class AuthActivity : AppCompatActivity() {
         val etPassword = findViewById<EditText>(R.id.etPassword)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val btnRegister = findViewById<Button>(R.id.btnRegister)
+        val spot1 = findViewById<View>(R.id.spot1)
+        val spot2 = findViewById<View>(R.id.spot2)
+        val spot3 = findViewById<View>(R.id.spot3)
+
+        startFloatingAnimation(spot1, 7000)
+        startFloatingAnimation(spot2, 9000)
+        startFloatingAnimation(spot3, 12000)
 
         val db = AppDatabase.getInstance(this)
         val userDao = db.userDao()
@@ -84,6 +98,27 @@ class AuthActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    fun startFloatingAnimation(view: View, duration: Long) {
+        val animX = ObjectAnimator.ofFloat(view, "translationX", -150f, 150f).apply {
+            this.duration = duration
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
+            this.duration = duration + 1000 // Разная скорость для естественности
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        AnimatorSet().apply {
+            playTogether(animX, animY)
+            start()
         }
     }
 }

@@ -1,8 +1,13 @@
 package com.emotionme.stable
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
@@ -34,6 +39,13 @@ class SettingsActivity : AppCompatActivity() {
         val enabled = prefs.getBoolean("notify_enabled", true)
         val hour = prefs.getInt("notify_hour", 12)
         val minute = prefs.getInt("notify_minute", 0)
+        val spot1 = findViewById<View>(R.id.spot1)
+        val spot2 = findViewById<View>(R.id.spot2)
+        val spot3 = findViewById<View>(R.id.spot3)
+
+        startFloatingAnimation(spot1, 7000)
+        startFloatingAnimation(spot2, 9000)
+        startFloatingAnimation(spot3, 12000)
 
         switchNotify.isChecked = enabled
         timePicker.hour = hour
@@ -72,7 +84,7 @@ class SettingsActivity : AppCompatActivity() {
         infoTV.setOnClickListener{
             Snackbar.make(
                 infoTV,
-                "EmotionMe version 1.2.2beta build April 6th, 2026 by KrisWinther",
+                "EmotionMe version 1.3beta build April 17th, 2026 by KrisWinther",
                 Snackbar.LENGTH_SHORT)
                 .show()
         }
@@ -124,5 +136,26 @@ class SettingsActivity : AppCompatActivity() {
             "Завершаем сессию…",
             Toast.LENGTH_SHORT)
             .show()
+    }
+
+    fun startFloatingAnimation(view: View, duration: Long) {
+        val animX = ObjectAnimator.ofFloat(view, "translationX", -150f, 150f).apply {
+            this.duration = duration
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
+            this.duration = duration + 1000 // Разная скорость для естественности
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        AnimatorSet().apply {
+            playTogether(animX, animY)
+            start()
+        }
     }
 }

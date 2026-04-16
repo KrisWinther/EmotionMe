@@ -1,143 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:orientation="vertical"
-    android:padding="25dp"
-    android:layout_gravity="center">
+    android:background="@color/white"
+    tools:context=".AuthActivity">
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp"
-        android:backgroundTint="@color/white"
-        android:background="@drawable/icon_bg">
+        android:id="@+id/backgroundContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EAF3FF"> <!-- Основной градиент -->
 
-        <TextView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_margin="15dp"
-            android:background="@mipmap/emotionme_v11" />
+        <!-- Пятно 1 -->
+        <View
+            android:id="@+id/spot1"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="top|end"
+            android:background="@drawable/oval_blue_gradient" />
+
+        <!-- Пятно 2 -->
+        <View
+            android:id="@+id/spot2"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:background="@drawable/oval_orange_gradient" />
+
+        <View
+            android:id="@+id/spot3"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="bottom|start"
+            android:background="@drawable/oval_violet_gradient" />
+
+        <!-- МАТовый слой (Glassmorphism) -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#60FFFFFF" /> <!-- Полупрозрачный белый -->
+
     </FrameLayout>
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="EmotionMe"
-        android:layout_marginTop="10dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="45sp" />
+        android:orientation="vertical"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:paddingBottom="10dp"
+        tools:ignore="MissingConstraints">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/icon_bg"
+            android:backgroundTint="@color/white">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_margin="15dp"
+                android:background="@mipmap/emotionme_v11" />
+        </FrameLayout>
 
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="EmotionMe"
+            android:textColor="@color/black"
+            android:textSize="45sp"
+            android:textStyle="bold" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/field_light">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/field_light"
+            android:backgroundTint="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:text="👋 Добро пожаловать!"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/field_light"
+            android:backgroundTint="@color/white"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <EditText
+                android:id="@+id/etLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/lavender"
+                android:hint="Логин"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey"
+                app:layout_constraintTop_toTopOf="parent" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_dark"
+            android:backgroundTint="@color/black"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/lavender"
+                android:hint="Пароль"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey"
+                app:layout_constraintTop_toTopOf="@id/etLogin" />
+        </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:backgroundTint="@color/black"
+            android:gravity="center"
+            android:text="🔑 Войти"
+            android:textColor="@color/white"
+            app:cornerRadius="15dp"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:backgroundTint="@color/lavender"
+            android:text="Регистрация"
+            android:textColor="@color/white"
+            app:cornerRadius="15dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="5dp"
-            android:text="👋 Добро пожаловать!"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </FrameLayout>
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Новый пользователь? Кликните сюда, чтобы создать аккаунт"
+            android:textColor="@color/dark_grey"
+            android:textSize="12sp" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:backgroundTint="@color/white"
-        android:background="@drawable/field_light"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp">
+    </LinearLayout>
 
-        <EditText
-            android:id="@+id/etLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:hint="Логин"
-            android:inputType="text"
-            android:backgroundTint="@color/lavender"
-            android:padding="15dp"
-            android:textColorHint="@color/grey"
-            android:layout_margin="5dp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="parent" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/field_light"
-        android:backgroundTint="@color/black"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp">
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Пароль"
-            android:backgroundTint="@color/lavender"
-            android:textColorHint="@color/grey"
-            android:inputType="textPassword"
-            android:padding="15dp"
-            android:layout_margin="5dp"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toTopOf="@id/etLogin" />
-    </FrameLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/black"
-        android:gravity="center"
-        android:text="🔑 Войти"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        app:cornerRadius="15dp"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/lavender"
-        android:text="Регистрация"
-        app:cornerRadius="15dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:text="Новый пользователь? Кликните сюда, чтобы создать аккаунт"
-        android:textColor="@color/dark_grey"
-        android:textSize="12sp"/>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

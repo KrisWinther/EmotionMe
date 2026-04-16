@@ -1,9 +1,13 @@
 package com.emotionme.stable
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +17,7 @@ import java.util.*
 
 class NotesActivity : AppCompatActivity() {
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,6 +28,13 @@ class NotesActivity : AppCompatActivity() {
         val container = findViewById<LinearLayout>(R.id.notesContainer)
         val btnBack = findViewById<TextView>(R.id.btnBackNotes)
         val spinner = findViewById<Spinner>(R.id.spinnerNote)
+        val spot1 = findViewById<View>(R.id.spot1)
+        val spot2 = findViewById<View>(R.id.spot2)
+        val spot3 = findViewById<View>(R.id.spot3)
+
+        startFloatingAnimation(spot1, 7000)
+        startFloatingAnimation(spot2, 9000)
+        startFloatingAnimation(spot3, 12000)
 
         btnBack.setOnClickListener { finish() }
 
@@ -92,6 +104,27 @@ class NotesActivity : AppCompatActivity() {
                 load(fromForPosition(pos))
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    fun startFloatingAnimation(view: View, duration: Long) {
+        val animX = ObjectAnimator.ofFloat(view, "translationX", -150f, 150f).apply {
+            this.duration = duration
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
+            this.duration = duration + 1000 // Разная скорость для естественности
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        AnimatorSet().apply {
+            playTogether(animX, animY)
+            start()
         }
     }
 }

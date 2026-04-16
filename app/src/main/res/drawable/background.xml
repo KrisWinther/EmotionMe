@@ -15,13 +15,13 @@
     <item android:gravity="top|end">
         <shape android:shape="oval">
             <size
-                android:width="300dp"
-                android:height="300dp" />
+                android:width="500dp"
+                android:height="500dp" />
             <gradient
                 android:centerX="0.5"
                 android:centerY="0.5"
                 android:endColor="#004FC3F7"
-                android:gradientRadius="200dp"
+                android:gradientRadius="140dp"
                 android:startColor="#804FC3F7"
                 android:type="radial" />
         </shape>
@@ -30,11 +30,11 @@
     <item android:gravity="bottom|start">
         <shape android:shape="oval">
             <size
-                android:width="280dp"
-                android:height="280dp" />
+                android:width="450dp"
+                android:height="450dp" />
             <gradient
                 android:endColor="#00FFB74D"
-                android:gradientRadius="200dp"
+                android:gradientRadius="140dp"
                 android:startColor="#80FFB74D"
                 android:type="radial" />
         </shape>
@@ -44,14 +44,20 @@
     <item android:gravity="center">
         <shape android:shape="oval">
             <size
-                android:width="250dp"
-                android:height="250dp" />
+                android:width="600dp"
+                android:height="600dp" />
             <gradient
                 android:endColor="#006A5AE0"
-                android:gradientRadius="180dp"
+                android:gradientRadius="120dp"
                 android:startColor="#806A5AE0"
                 android:type="radial" />
         </shape>
     </item>
 
+    <item>
+        <shape android:shape="rectangle">
+            <!-- Белый полупрозрачный цвет для эффекта матовости -->
+            <solid android:color="#40FFFFFF" />
+        </shape>
+    </item>
 </layer-list>

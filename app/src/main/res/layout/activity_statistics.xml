@@ -3,7 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@color/white"
+    tools:context=".StatisticsActivity">
+
+    <FrameLayout
+        android:id="@+id/backgroundContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EAF3FF"> <!-- Основной градиент -->
+
+        <!-- Пятно 1 -->
+        <View
+            android:id="@+id/spot1"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="top|end"
+            android:background="@drawable/oval_blue_gradient" />
+
+        <!-- Пятно 2 -->
+        <View
+            android:id="@+id/spot2"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:background="@drawable/oval_orange_gradient" />
+
+        <View
+            android:id="@+id/spot3"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="bottom|start"
+            android:background="@drawable/oval_violet_gradient" />
+
+        <!-- МАТовый слой (Glassmorphism) -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#60FFFFFF" /> <!-- Полупрозрачный белый -->
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/main_frame"

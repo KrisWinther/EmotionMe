@@ -10,9 +10,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import android.Manifest
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.activity.enableEdgeToEdge
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -28,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         requestNotificationPermissionIfNeeded()
-
 
         val db = AppDatabase.getInstance(this)
         val userId = SessionManager.getUser(this)
@@ -51,6 +54,13 @@ class MainActivity : AppCompatActivity() {
         val showMotivation = findViewById<TextView>(R.id.showMotivation)
         val scrollView = findViewById<ScrollView>(R.id.scroll)
         val mainTV = findViewById<TextView>(R.id.mainTV)
+        val spot1 = findViewById<View>(R.id.spot1)
+        val spot2 = findViewById<View>(R.id.spot2)
+        val spot3 = findViewById<View>(R.id.spot3)
+
+        startFloatingAnimation(spot1, 7000)
+        startFloatingAnimation(spot2, 9000)
+        startFloatingAnimation(spot3, 12000)
 
         mainTV.setOnClickListener {
             Snackbar.make(mainTV,
@@ -73,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             val user = db.userDao().getById(userId)
             val name = user?.login
             val greeting = listOf(
-                "Доброго дня, $name! ☀\uFE0F",
+                "Как дела, $name? \uD83D\uDC4B",
                 "Как проходит день, $name?",
                 "Привет, $name! \uD83D\uDC4B",
                 "Добро пожаловать, $name!",
@@ -241,5 +251,26 @@ class MainActivity : AppCompatActivity() {
                 etNote.text.clear()
             }
         }.start()
+    }
+
+    fun startFloatingAnimation(view: View, duration: Long) {
+        val animX = ObjectAnimator.ofFloat(view, "translationX", -150f, 150f).apply {
+            this.duration = duration
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
+            this.duration = duration + 1000 // Разная скорость для естественности
+            repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE
+            interpolator = AccelerateDecelerateInterpolator()
+        }
+
+        AnimatorSet().apply {
+            playTogether(animX, animY)
+            start()
+        }
     }
 }
