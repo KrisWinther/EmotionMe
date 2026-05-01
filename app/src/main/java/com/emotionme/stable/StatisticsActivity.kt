@@ -99,7 +99,7 @@ class StatisticsActivity : AppCompatActivity() {
         currentYear = now.get(Calendar.YEAR)
         currentMonth = now.get(Calendar.MONTH)
 
-        val years = (2020..currentYear).map { it.toString() }
+        val years = (2026..currentYear).map { it.toString() }
 
         val monthAdapter = ArrayAdapter(this, R.layout.item_spinner, monthNames)
         monthAdapter.setDropDownViewResource(R.layout.item_spinner)
