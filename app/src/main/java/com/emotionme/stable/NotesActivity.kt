@@ -32,9 +32,9 @@ class NotesActivity : AppCompatActivity() {
         val spot2 = findViewById<View>(R.id.spot2)
         val spot3 = findViewById<View>(R.id.spot3)
 
-        startFloatingAnimation(spot1, 7000)
-        startFloatingAnimation(spot2, 9000)
-        startFloatingAnimation(spot3, 12000)
+        startFloatingAnimation(spot1, 5000)
+        startFloatingAnimation(spot2, 7000)
+        startFloatingAnimation(spot3, 9000)
 
         btnBack.setOnClickListener { finish() }
 
@@ -116,7 +116,7 @@ class NotesActivity : AppCompatActivity() {
         }
 
         val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
-            this.duration = duration + 1000 // Разная скорость для естественности
+            this.duration = duration + 800 // Разная скорость для естественности
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
             interpolator = AccelerateDecelerateInterpolator()

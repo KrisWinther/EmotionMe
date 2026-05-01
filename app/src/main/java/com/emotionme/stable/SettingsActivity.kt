@@ -43,9 +43,9 @@ class SettingsActivity : AppCompatActivity() {
         val spot2 = findViewById<View>(R.id.spot2)
         val spot3 = findViewById<View>(R.id.spot3)
 
-        startFloatingAnimation(spot1, 7000)
-        startFloatingAnimation(spot2, 9000)
-        startFloatingAnimation(spot3, 12000)
+        startFloatingAnimation(spot1, 5000)
+        startFloatingAnimation(spot2, 8000)
+        startFloatingAnimation(spot3, 10000)
 
         switchNotify.isChecked = enabled
         timePicker.hour = hour
@@ -84,7 +84,7 @@ class SettingsActivity : AppCompatActivity() {
         infoTV.setOnClickListener{
             Snackbar.make(
                 infoTV,
-                "EmotionMe version 1.3beta build April 17th, 2026 by KrisWinther",
+                "EmotionMe version 1.4beta build May 1st, 2026 by KrisWinther",
                 Snackbar.LENGTH_SHORT)
                 .show()
         }
@@ -147,7 +147,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
-            this.duration = duration + 1000 // Разная скорость для естественности
+            this.duration = duration + 800 // Разная скорость для естественности
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
             interpolator = AccelerateDecelerateInterpolator()

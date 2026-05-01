@@ -15,6 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 
+@Suppress("DEPRECATION")
 class PasswordActivity : AppCompatActivity() {
 
     private var doubleClick: Long = 0
@@ -33,9 +34,9 @@ class PasswordActivity : AppCompatActivity() {
         val spot2 = findViewById<View>(R.id.spot2)
         val spot3 = findViewById<View>(R.id.spot3)
 
-        startFloatingAnimation(spot1, 7000)
-        startFloatingAnimation(spot2, 9000)
-        startFloatingAnimation(spot3, 12000)
+        startFloatingAnimation(spot1, 5000)
+        startFloatingAnimation(spot2, 7000)
+        startFloatingAnimation(spot3, 9000)
 
         btnBack.setOnClickListener { finish() }
 
@@ -111,6 +112,10 @@ class PasswordActivity : AppCompatActivity() {
             runOnUiThread {
                 Toast.makeText(this, "Пароль успешно изменён ✅", Toast.LENGTH_SHORT).show()
                 finish()
+                overridePendingTransition(
+                    R.anim.slide_out_left,
+                    R.anim.slide_in_right
+                )
             }
         }.start()
     }
@@ -124,7 +129,7 @@ class PasswordActivity : AppCompatActivity() {
         }
 
         val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
-            this.duration = duration + 1000 // Разная скорость для естественности
+            this.duration = duration + 800 // Разная скорость для естественности
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
             interpolator = AccelerateDecelerateInterpolator()

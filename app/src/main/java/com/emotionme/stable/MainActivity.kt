@@ -58,9 +58,9 @@ class MainActivity : AppCompatActivity() {
         val spot2 = findViewById<View>(R.id.spot2)
         val spot3 = findViewById<View>(R.id.spot3)
 
-        startFloatingAnimation(spot1, 7000)
-        startFloatingAnimation(spot2, 9000)
-        startFloatingAnimation(spot3, 12000)
+        startFloatingAnimation(spot1, 5000)
+        startFloatingAnimation(spot2, 7000)
+        startFloatingAnimation(spot3, 9000)
 
         mainTV.setOnClickListener {
             Snackbar.make(mainTV,
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                     "Не переживай, работа принесёт свои плоды"
                 ).random()
                 else -> listOf(
-                    "Превосходный день, так держать! ❤\uFE0F",
+                    "Превосходный день, так держать, $name! ❤\uFE0F",
                     "Хорошо идём, пусть дальше будет также хорошо, а то и лучше! \uD83D\uDE09",
                     "Пусть завтрашний день будет таким же хорошим как сегодняшний \uD83E\uDD29"
                 ).random()
@@ -262,7 +262,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
-            this.duration = duration + 1000 // Разная скорость для естественности
+            this.duration = duration + 800 // Разная скорость для естественности
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
             interpolator = AccelerateDecelerateInterpolator()
