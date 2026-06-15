@@ -48,7 +48,7 @@ class SettingsStartActivity : AppCompatActivity() {
                 id = themeKey.hashCode()
                 text = ThemeManager.displayName(this@SettingsStartActivity, themeKey)
                 textSize = 15f
-                setTextColor(R.color.black)
+                setTextColor(android.graphics.Color.BLACK)
                 setPadding(8, 16, 8, 16)
             }
             themeGroup.addView(rb)
@@ -80,7 +80,7 @@ class SettingsStartActivity : AppCompatActivity() {
                 id = langKey.hashCode()
                 text = LanguageManager.displayName(langKey)
                 textSize = 15f
-                setTextColor(R.color.black)
+                setTextColor(android.graphics.Color.BLACK)
                 setPadding(8, 16, 8, 16)
             }
             langGroup.addView(rb)

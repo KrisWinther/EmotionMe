@@ -131,7 +131,7 @@
     <string name="lang_changed">Language changed — please restart the app</string>
 
     <!-- Version -->
-    <string name="app_version">Version 1.6.1 (26.6.15beta)</string>
+    <string name="app_version">Version 1.6.1b (26.6.15beta)</string>
     <string name="app_info">EmotionMe version 1.6.1 beta build June 15th, 2026 by KrisWinther</string>
 
     <!-- Themes -->
