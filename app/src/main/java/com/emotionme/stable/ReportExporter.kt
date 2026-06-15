@@ -7,15 +7,15 @@ import android.content.Context
 import android.graphics.*
 import android.os.Build
 import android.provider.MediaStore
-import java.io.OutputStream
-import androidx.core.graphics.toColorInt
+import android.view.View
 import androidx.core.graphics.createBitmap
+import androidx.core.graphics.toColorInt
+import java.io.OutputStream
 
 object ReportExporter {
 
     private val COLOR_BG = "#e8f7ff".toColorInt()
     private val COLOR_HEADER_BG = "#476fff".toColorInt()
-    private const val COLOR_WHITE = Color.WHITE
     private val COLOR_DIVIDER = "#b7b6ec".toColorInt()
     private val COLOR_ACCENT = "#476fff".toColorInt()
 
@@ -28,13 +28,20 @@ object ReportExporter {
         locationStats: List<StatItem>,
         weatherStats: List<StatItem>,
         dominantByDay: Map<Int, String>
-    ): String? {
-        val bitmap = buildBitmap(
-            context, userName, year, month,
-            moodStats, locationStats, weatherStats, dominantByDay
-        )
-        return saveBitmapToGallery(context, bitmap, year, month)
-    }
+    ): String? = saveBitmapToGallery(
+        context,
+        buildBitmap(
+            context,
+            userName,
+            year,
+            month,
+            moodStats,
+            locationStats,
+            weatherStats,
+            dominantByDay
+        ),
+        year, month
+    )
 
     private fun buildBitmap(
         context: Context,
@@ -46,42 +53,39 @@ object ReportExporter {
         weatherStats: List<StatItem>,
         dominantByDay: Map<Int, String>
     ): Bitmap {
-
         val dp = context.resources.displayMetrics.density
         val sp = context.resources.displayMetrics.scaledDensity
 
         val width = (420 * dp).toInt()
         val padding = (16 * dp).toInt()
         val headerHeight = (90 * dp).toInt()
-        val chartHeightBig = (230 * dp).toInt() // настроение — крупный
-        val chartHeightSmall = (200 * dp).toInt() // место + погода — меньше
+        val chartHeightBig = (230 * dp).toInt()
+        val chartHeightSmall = (200 * dp).toInt()
         val labelHeight = (32 * dp).toInt()
         val gap = (12 * dp).toInt()
-        val cardRadius = (20 * dp) // радиус карточек
+        val cardRadius = 20f * dp
         val footerHeight = (40 * dp).toInt()
 
-        // Ширина нижней строки: место занимает ~55%, погода ~45%
         val rowW = width - padding * 2
         val locationW = (rowW * 0.55f).toInt()
         val weatherW = rowW - locationW - padding
 
-        // Высота календаря
         val calW = width - padding * 2
         val cellSize = calW / 7f
         val calHeadH = (cellSize * 0.6f).toInt()
         val calHeight = (calHeadH + 6 * cellSize + 56 * dp).toInt()
 
         val totalH = headerHeight + gap +
-                labelHeight + chartHeightBig + gap + // строка 1: настроение
-                labelHeight + chartHeightSmall + gap +  // строка 2: место + погода
-                labelHeight + calHeight + gap +  // строка 3: календарь
+                labelHeight + chartHeightBig + gap +
+                labelHeight + chartHeightSmall + gap +
+                labelHeight + calHeight + gap +
                 footerHeight + padding
 
         val bitmap = createBitmap(width, totalH)
         val canvas = Canvas(bitmap)
         canvas.drawColor(COLOR_BG)
 
-        val paintCard = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = COLOR_WHITE }
+        val paintCard = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = Color.WHITE }
         val paintDiv = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = COLOR_DIVIDER; style = Paint.Style.STROKE; strokeWidth = 1f * dp
         }
@@ -90,38 +94,41 @@ object ReportExporter {
             typeface = Typeface.DEFAULT_BOLD; textAlign = Paint.Align.LEFT
         }
 
-        // Шапка закруглена снизу с радиусом 20dp
+        // Шапка
         val headerRadius = 20f * dp
         val paintHeader = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = COLOR_HEADER_BG }
-
-        // Рисуем прямоугольник с полным скруглением, затем перекрываем верхние углы
         canvas.drawRoundRect(
             RectF(0f, 0f, width.toFloat(), headerHeight.toFloat()),
             headerRadius, headerRadius, paintHeader
         )
-        // Верхние два угла прямые (перекрываем скругление)
         canvas.drawRect(0f, 0f, width.toFloat(), headerRadius, paintHeader)
 
         val paintTitle = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = COLOR_WHITE; textSize = 22f * sp
+            color = Color.WHITE; textSize = 22f * sp
             typeface = Typeface.DEFAULT_BOLD; textAlign = Paint.Align.CENTER
         }
         val paintSub = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = "#e8f7ff".toColorInt(); textSize = 14f * sp
-            textAlign = Paint.Align.CENTER
+            color = "#e8f7ff".toColorInt(); textSize = 14f * sp; textAlign = Paint.Align.CENTER
         }
 
-        val monthNames = arrayOf(
-            "Январь", "Февраль", "Март", "Апрель",
-            "Май", "Июнь", "Июль", "Август",
-            "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+        // Название месяца — через ресурсы (локализовано)
+        val monthName = context.getString(
+            context.resources.getIdentifier(
+                "month${month + 1}",
+                "string",
+                context.packageName
+            )
         )
-
         canvas.drawText(
-            "📊 Отчёт за ${monthNames[month]} $year",
-            width / 2f, headerHeight * 0.46f, paintTitle
+            context.getString(R.string.report_header, monthName, year),
+            width / 2f,
+            headerHeight * 0.46f, paintTitle
         )
-        canvas.drawText(userName, width / 2f, headerHeight * 0.75f, paintSub)
+        canvas.drawText(
+            userName,
+            width / 2f,
+            headerHeight * 0.75f, paintSub
+        )
 
         var curY = headerHeight + gap
 
@@ -129,13 +136,13 @@ object ReportExporter {
         fun renderChart(items: List<StatItem>, w: Int, h: Int): Bitmap {
             val v = StatsChartView(context)
             v.measure(
-                android.view.View.MeasureSpec.makeMeasureSpec(
+                View.MeasureSpec.makeMeasureSpec(
                     w,
-                    android.view.View.MeasureSpec.EXACTLY
+                    View.MeasureSpec.EXACTLY
                 ),
-                android.view.View.MeasureSpec.makeMeasureSpec(
+                View.MeasureSpec.makeMeasureSpec(
                     h,
-                    android.view.View.MeasureSpec.EXACTLY
+                    View.MeasureSpec.EXACTLY
                 )
             )
             v.layout(0, 0, w, h)
@@ -148,13 +155,13 @@ object ReportExporter {
         fun renderCalendar(w: Int, h: Int): Bitmap {
             val v = MoodCalendarView(context)
             v.measure(
-                android.view.View.MeasureSpec.makeMeasureSpec(
+                View.MeasureSpec.makeMeasureSpec(
                     w,
-                    android.view.View.MeasureSpec.EXACTLY
+                    View.MeasureSpec.EXACTLY
                 ),
-                android.view.View.MeasureSpec.makeMeasureSpec(
+                View.MeasureSpec.makeMeasureSpec(
                     h,
-                    android.view.View.MeasureSpec.EXACTLY
+                    View.MeasureSpec.EXACTLY
                 )
             )
             v.layout(0, 0, w, h)
@@ -175,33 +182,34 @@ object ReportExporter {
             canvas.drawBitmap(bmp, x.toFloat(), (y + labelHeight).toFloat(), null)
         }
 
-        // Строка 1: Настроение на всю ширину, крупный график
+        // Карточки — названия через ресурсы (локализованы)
         val bmpMood = renderChart(moodStats, width - padding * 2, chartHeightBig)
-        drawCard(bmpMood, "Настроение", padding, curY)
+        drawCard(bmpMood, context.getString(R.string.chart_mood), padding, curY)
         curY += labelHeight + chartHeightBig + gap
 
-        // Строка 2: Место (55%) + Погода (45%) рядом
         val bmpLocation = renderChart(locationStats, locationW, chartHeightSmall)
         val bmpWeather = renderChart(weatherStats, weatherW, chartHeightSmall)
-
-        drawCard(bmpLocation, "Место", padding, curY)
-        drawCard(bmpWeather, "Погода", padding + locationW + padding, curY)
+        drawCard(bmpLocation, context.getString(R.string.chart_location), padding, curY)
+        drawCard(
+            bmpWeather,
+            context.getString(R.string.chart_weather),
+            padding + locationW + padding,
+            curY
+        )
         curY += labelHeight + chartHeightSmall + gap
 
-        // Строка 3: Календарь
         val bmpCal = renderCalendar(width - padding * 2, calHeight)
-        drawCard(bmpCal, "Календарь настроения", padding, curY)
+        drawCard(bmpCal, context.getString(R.string.calendar_title), padding, curY)
         curY += labelHeight + calHeight + gap
 
-        // Подпись внизу
+        // Подпись
         val paintFooter = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = "#000000".toColorInt()
-            textSize = 12f * sp
+            color = "#000000".toColorInt(); textSize = 12f * sp
             textAlign = Paint.Align.CENTER
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)
         }
         canvas.drawText(
-            "Сгенерировано в EmotionMe ❤️",
+            context.getString(R.string.report_footer),
             width / 2f, curY + footerHeight * 0.6f, paintFooter
         )
 
@@ -221,14 +229,13 @@ object ReportExporter {
             put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
             put(MediaStore.Images.Media.MIME_TYPE, "image/png")
             put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/EmotionMe")
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
                 put(MediaStore.Images.Media.IS_PENDING, 1)
-            }
         }
 
         val resolver = context.contentResolver
-        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-            ?: return null
+        val uri =
+            resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values) ?: return null
 
         var stream: OutputStream? = null
         return try {
@@ -241,11 +248,9 @@ object ReportExporter {
             }
             fileName
         } catch (_: Exception) {
-            resolver.delete(uri, null, null)
-            null
+            resolver.delete(uri, null, null); null
         } finally {
-            stream?.close()
-            bitmap.recycle()
+            stream?.close(); bitmap.recycle()
         }
     }
 }

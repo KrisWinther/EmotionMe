@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:background="?attr/themeBackgroundColor"
     tools:context=".NotesActivity">
 
     <FrameLayout
         android:id="@+id/backgroundContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EAF3FF"> <!-- Основной градиент -->
+        android:background="?attr/themeBackgroundColor"> <!-- Основной градиент -->
 
         <!-- Пятно 1 -->
         <View
@@ -35,12 +35,6 @@
             android:layout_gravity="bottom|start"
             android:background="@drawable/oval_violet_gradient" />
 
-        <!-- МАТовый слой (Glassmorphism) -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#60FFFFFF" /> <!-- Полупрозрачный белый -->
-
     </FrameLayout>
 
     <FrameLayout
@@ -48,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/field_frame_2"
-        android:backgroundTint="@color/lavender"
+        android:backgroundTint="?attr/themeAccentColor"
         android:paddingTop="27dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
             android:layout_marginStart="17dp"
-            android:text="💭 Заметки"
+            android:text="@string/screen_notes"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -69,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
-            android:backgroundTint="@color/lavender"
+            android:backgroundTint="@color/blue_primary"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:padding="10dp"

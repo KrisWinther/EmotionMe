@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/themeBackgroundColor"
     tools:context=".MainActivity">
     <FrameLayout
         android:id="@+id/backgroundContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EAF3FF"> <!-- Основной градиент -->
+        android:background="?attr/themeBackgroundColor"> <!-- Основной градиент -->
 
         <!-- Пятно 1 -->
         <View
@@ -36,12 +36,6 @@
             android:layout_gravity="bottom|start"
             android:background="@drawable/oval_violet_gradient" />
 
-        <!-- МАТовый слой (Glassmorphism) -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#60FFFFFF" /> <!-- Полупрозрачный белый -->
-
     </FrameLayout>
 
     <FrameLayout
@@ -49,9 +43,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/field_frame_2"
-        android:backgroundTint="@color/lavender"
+        android:backgroundTint="?attr/themeAccentColor"
         android:paddingTop="27dp"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Base.Theme.EmotionMe">
 
         <TextView
             android:id="@+id/greets"
@@ -60,7 +55,7 @@
             android:layout_gravity="center|start"
             android:layout_marginStart="12dp"
             android:padding="10dp"
-            android:text="Главная"
+            android:text="@string/screen_main"
             android:textColor="@color/white"
             android:textSize="23sp"
             android:textStyle="bold" />
@@ -70,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
-            android:backgroundTint="@color/lavender"
+            android:backgroundTint="@color/blue_primary"
             android:gravity="center"
             android:padding="10dp"
             android:layout_marginEnd="12dp"
@@ -110,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="🌟 Опиши свой момент"
+                    android:text="@string/describe_moment"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -164,7 +159,7 @@
                 android:textColorHint="@color/grey"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:background="@drawable/field_light"
-                android:hint="Здесь можно оставить заметку"
+                android:hint="@string/hint_note"
                 android:padding="25dp" />
 
             <com.google.android.material.button.MaterialButton
@@ -174,9 +169,18 @@
                 android:layout_marginTop="10dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:backgroundTint="@color/lavender"
-                android:text="💾 Сохранить"
+                android:backgroundTint="?attr/themeAccentColor"
+                android:text="@string/btn_save"
                 app:cornerRadius="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/dark_grey"
+                android:text="@string/hint_byn_group"
+                android:padding="5dp"
+                android:textStyle="bold"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnStats"
@@ -185,7 +189,7 @@
                 android:backgroundTint="@color/black"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:text="📊 Статистика"
+                android:text="@string/btn_stats"
                 app:cornerRadius="15dp"/>
 
             <com.google.android.material.button.MaterialButton
@@ -195,7 +199,7 @@
                 android:backgroundTint="@color/black"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:text="💭 Заметки"
+                android:text="@string/btn_notes"
                 app:cornerRadius="15dp"/>
         </LinearLayout>
     </ScrollView>
@@ -205,7 +209,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/field_frame_bottom"
-        android:backgroundTint="@color/lavender"
+        android:backgroundTint="?attr/themeAccentColor"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <FrameLayout

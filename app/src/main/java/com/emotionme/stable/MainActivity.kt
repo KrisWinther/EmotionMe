@@ -25,9 +25,39 @@ class MainActivity : AppCompatActivity() {
 
     private var doubleClick: Long = 0
 
+    // Параллельные списки: отображаемые строки -> стабильные ключи
+    private val moodKeys = listOf(
+        MoodKeys.MOOD_HAPPY,
+        MoodKeys.MOOD_JOY,
+        MoodKeys.MOOD_CALM,
+        MoodKeys.MOOD_NEUTRAL,
+        MoodKeys.MOOD_TIRED,
+        MoodKeys.MOOD_SAD,
+        MoodKeys.MOOD_ANGRY
+    )
+    private val placeKeys = listOf(
+        MoodKeys.PLACE_HOME,
+        MoodKeys.PLACE_WORK,
+        MoodKeys.PLACE_WALK,
+        MoodKeys.PLACE_ON_WAY,
+        MoodKeys.PLACE_GUEST,
+        MoodKeys.PLACE_CAFE,
+        MoodKeys.PLACE_SHOPPING,
+        MoodKeys.PLACE_TRAVEL,
+        MoodKeys.PLACE_PARTY
+    )
+    private val weatherKeys = listOf(
+        MoodKeys.WEATHER_CLEAR,
+        MoodKeys.WEATHER_CLOUDY1,
+        MoodKeys.WEATHER_CLOUDY2,
+        MoodKeys.WEATHER_BAD
+    )
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ThemeManager.applyTheme(this)
+        LanguageManager.applyLanguage(this)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
@@ -54,203 +84,202 @@ class MainActivity : AppCompatActivity() {
         val showMotivation = findViewById<TextView>(R.id.showMotivation)
         val scrollView = findViewById<ScrollView>(R.id.scroll)
         val mainTV = findViewById<TextView>(R.id.mainTV)
-        val spot1 = findViewById<View>(R.id.spot1)
-        val spot2 = findViewById<View>(R.id.spot2)
-        val spot3 = findViewById<View>(R.id.spot3)
 
-        startFloatingAnimation(spot1, 5000)
-        startFloatingAnimation(spot2, 7000)
-        startFloatingAnimation(spot3, 9000)
+        startFloatingAnimation(findViewById(R.id.spot1), 5000)
+        startFloatingAnimation(findViewById(R.id.spot2), 7000)
+        startFloatingAnimation(findViewById(R.id.spot3), 9000)
 
         mainTV.setOnClickListener {
-            Snackbar.make(mainTV,
-                "Как насчёт того, чтобы сделать запись о своём настроении?",
+            Snackbar.make(
+                mainTV,
+                getString(R.string.info2),
                 Snackbar.LENGTH_SHORT)
                 .show()
         }
 
         etNote.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                scrollView.post {
-                    scrollView.fullScroll(View.FOCUS_DOWN)
-                }
+                scrollView.post { scrollView.fullScroll(View.FOCUS_DOWN) }
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        // Приветствие
         Thread {
             val user = db.userDao().getById(userId)
-            val name = user?.login
+            val displayName = user?.displayName?.ifBlank { user.login } ?: ""
             val greeting = listOf(
-                "Как дела, $name? \uD83D\uDC4B",
-                "Как проходит день, $name?",
-                "Привет, $name! \uD83D\uDC4B",
-                "Добро пожаловать, $name!",
-                "Рады видеть тебя, $name! \uD83D\uDE07",
-                "Как настроение, $name?",
-                "$name! А вот и ты! \uD83D\uDE0A"
+                "${getString(R.string.greets1)}, $displayName? 👋",
+                "${getString(R.string.greets2)}, $displayName! 👋",
+                "${getString(R.string.greets3)}, $displayName?",
+                "${getString(R.string.greets4)}, $displayName! 😇",
+                "${getString(R.string.greets5)}, $displayName?",
+                "$displayName! ${getString(R.string.greets6)} 😊"
             ).random()
-
-            runOnUiThread {
-                greets.text = greeting
-            }
+            runOnUiThread { greets.text = greeting }
         }.start()
 
+        // Мотивация (теперь сравниваем по KEY, не по локализованному тексту)
         Thread {
             val user = db.userDao().getById(userId)
-            val name = user?.login
+            val displayName = user?.displayName?.ifBlank { user.login } ?: ""
             val dayAgo = System.currentTimeMillis() - 24 * 60 * 60 * 1000
             val stats = db.moodDao().getStatsFrom(userId, dayAgo)
-            val tired = stats.filter{ it.mood.contains("\uD83D\uDE34") }.sumOf { it.count }
-            val good = stats.filter { it.mood.contains("😊") ||
-                    it.mood.contains("\uD83E\uDD70") ||
-                    it.mood.contains("\uD83D\uDE07") }.sumOf { it.count }
+
+            val tired = stats.filter { it.mood == MoodKeys.MOOD_TIRED }.sumOf { it.count }
+            val good = stats.filter {
+                it.mood == MoodKeys.MOOD_HAPPY ||
+                        it.mood == MoodKeys.MOOD_JOY ||
+                        it.mood == MoodKeys.MOOD_CALM
+            }.sumOf { it.count }
             val bad = stats.filter {
-                it.mood.contains("😢") || it.mood.contains("😡") }.sumOf { it.count }
+                it.mood == MoodKeys.MOOD_SAD ||
+                        it.mood == MoodKeys.MOOD_ANGRY
+            }.sumOf { it.count }
+
             val message = when {
                 tired > bad && tired > good -> listOf(
-                    "Усталость - это временно, отдых — это святое! 🛌",
-                    "Обязательно хорошенько отдохни, $name",
-                    "Если чувствуешь усталость - отдохни, не нагружай себя",
-                    "Усталость - помеха хорошей работе, не переусердствуй, $name"
+                    getString(R.string.motiv_tired_1),
+                    "${getString(R.string.motiv_bad_2)}, $displayName",
+                    getString(R.string.motiv_tired_3),
+                    "${getString(R.string.motiv_tired_4)}, $displayName"
                 ).random()
+
                 bad > good -> listOf(
-                    "Не сдавайся, ты не один",
-                    "Даже трудные дни проходят",
-                    "Не переживай, работа принесёт свои плоды"
+                    "${getString(R.string.motiv_bad_1)}, $displayName",
+                    getString(R.string.motiv_bad_2),
+                    "${getString(R.string.motiv_bad_3)}, $displayName",
+                    getString(R.string.motiv_bad_4)
                 ).random()
+
                 else -> listOf(
-                    "Превосходный день, так держать, $name! ❤\uFE0F",
-                    "Хорошо идём, пусть дальше будет также хорошо, а то и лучше! \uD83D\uDE09",
-                    "Пусть завтрашний день будет таким же хорошим как сегодняшний \uD83E\uDD29"
+                    "${getString(R.string.motiv_good_1)}, $displayName! ❤️",
+                    getString(R.string.motiv_good_2),
+                    getString(R.string.motiv_good_3)
                 ).random()
             }
-
             runOnUiThread { showMotivation.text = message }
         }.start()
 
+        // Спиннеры — показываем локализованные строки
+        val moodLabels = moodKeys.map {
+            getString(MoodKeys.moodResId(it))
+        }
         val moodAdapter = ArrayAdapter(
             this,
             R.layout.item_spinner,
-            listOf(
-                "\uD83E\uDD70 Счастье",
-                "😊 Радость",
-                "\uD83D\uDE07 Умиротворение",
-                "😐 Нейтрально",
-                "\uD83D\uDE34 Усталость",
-                "😢 Грусть",
-                "😡 Злость"
-            )
+            moodLabels
         )
         moodAdapter.setDropDownViewResource(R.layout.item_spinner)
         spinnerMood.adapter = moodAdapter
 
+        val placeLabels = placeKeys.map { getString(MoodKeys.placeResId(it)) }
         val placeAdapter = ArrayAdapter(
             this,
             R.layout.item_spinner,
-            listOf(
-                "🏡 Дома",
-                "\uD83D\uDCDA На учёбе | \uD83D\uDCBC На работе",
-                "⛺ На прогулке",
-                "\uD83D\uDEB6 В пути | \uD83D\uDE99 В транспорте",
-                "\uD83E\uDD42 В гостях",
-                "\uD83C\uDF5D В ресторане | ☕ В кафе",
-                "\uD83D\uDCB3 В магазине",
-                "\uD83D\uDDFA\uFE0F В путешествии",
-                "\uD83C\uDF89 На вечеринке"
-            )
+            placeLabels
         )
         placeAdapter.setDropDownViewResource(R.layout.item_spinner)
         spinnerPlace.adapter = placeAdapter
 
+        val weatherLabels = weatherKeys.map { getString(MoodKeys.weatherResId(it)) }
         val weatherAdapter = ArrayAdapter(
             this,
             R.layout.item_spinner,
-            listOf(
-                "☀\uFE0F Солнечно",
-                "⛅ Пасмурно",
-                "☁\uFE0F Облачно",
-                "⛈\uFE0F Непогода"
-            )
+            weatherLabels
         )
         weatherAdapter.setDropDownViewResource(R.layout.item_spinner)
         spinnerWeather.adapter = weatherAdapter
 
+        // Сохранение
         btnSave.setOnClickListener {
-            val currentTime = System.currentTimeMillis()
-            if (currentTime - doubleClick < 2000){
-                performAction()
-                doubleClick = 0 }
-            else {
-                doubleClick = currentTime
+            val now = System.currentTimeMillis()
+            if (now - doubleClick < 2000) {
+                performSave(spinnerMood, spinnerPlace, spinnerWeather, etNote, btnSave)
+                doubleClick = 0
+            } else {
+                doubleClick = now
                 Snackbar.make(
                     btnSave,
-                    "Нажми ещё раз, чтобы сохранить запись",
-                    Snackbar.LENGTH_SHORT)
+                    R.string.btn_save_confirm,
+                    Snackbar.LENGTH_SHORT
+                )
                     .setDuration(2000)
                     .show()
             }
         }
-        btnStats.setOnClickListener {
-            startActivity(Intent(this, StatisticsActivity::class.java)) }
-        btnNotes.setOnClickListener {
-            startActivity(Intent(this, NotesActivity::class.java)) }
-        btnSettings.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java)) }
+
+        btnStats.setOnClickListener { startActivity(Intent(
+            this,
+            StatisticsActivity::class.java)
+        ) }
+        btnNotes.setOnClickListener { startActivity(Intent(
+            this,
+            NotesActivity::class.java)
+        ) }
+        btnSettings.setOnClickListener { startActivity(Intent(this,
+            SettingsActivity::class.java)
+        ) }
+    }
+
+    private fun performSave(
+        spinnerMood: Spinner,
+        spinnerPlace: Spinner,
+        spinnerWeather: Spinner,
+        etNote: EditText,
+        btnSave: MaterialButton
+    ) {
+        val db = AppDatabase.getInstance(this)
+        val userId = SessionManager.getUser(this)
+
+        // Выбранный индекс -> ключ (стабильный) + локализованная строка (для отображения)
+        val moodIdx = spinnerMood.selectedItemPosition
+        val placeIdx = spinnerPlace.selectedItemPosition
+        val weatherIdx = spinnerWeather.selectedItemPosition
+
+        val moodKey = moodKeys[moodIdx]
+        val placeKey = placeKeys[placeIdx]
+        val weatherKey = weatherKeys[weatherIdx]
+
+        val moodLabel = spinnerMood.selectedItem.toString()
+        val placeLabel = spinnerPlace.selectedItem.toString()
+        val weatherLabel = spinnerWeather.selectedItem.toString()
+
+        val entry = MoodEntry(
+            userId = userId,
+            mood = moodLabel,     // локализованная строка (для отображения в Notes)
+            location = placeLabel,
+            weather = weatherLabel,
+            note = etNote.text.toString(),
+            timestamp = System.currentTimeMillis(),
+            moodKey = moodKey,       // стабильный ключ (для статистики)
+            locationKey = placeKey,
+            weatherKey = weatherKey
+        )
+
+        Thread {
+            db.moodDao().insert(entry)
+            runOnUiThread {
+                Snackbar.make(btnSave, R.string.saved, Snackbar.LENGTH_SHORT).show()
+                etNote.text.clear()
+            }
+        }.start()
     }
 
     private val notificationPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-            granted ->
-            if (granted) {
-            }
-        }
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
     private fun requestNotificationPermissionIfNeeded() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.POST_NOTIFICATIONS
+                    this, Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                notificationPermissionLauncher.launch(
-                    Manifest.permission.POST_NOTIFICATIONS
-                )
+                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
-    }
-    private fun performAction() {
-
-        val db = AppDatabase.getInstance(this)
-        val userId = SessionManager.getUser(this)
-
-        val etNote = findViewById<EditText>(R.id.etNote)
-        val btnSave = findViewById<MaterialButton>(R.id.btnSave)
-        val spinnerMood = findViewById<Spinner>(R.id.spinnerMood)
-        val spinnerPlace = findViewById<Spinner>(R.id.spinnerPlace)
-        val spinnerWeather = findViewById<Spinner>(R.id.spinnerWeather)
-
-        val data = MoodEntry(
-            userId = userId,
-            mood = spinnerMood.selectedItem.toString(),
-            location = spinnerPlace.selectedItem.toString(),
-            note = etNote.text.toString(),
-            timestamp = System.currentTimeMillis(),
-            weather = spinnerWeather.selectedItem.toString()
-        )
-        Thread {
-            db.moodDao().insert(data)
-
-            runOnUiThread {
-                Snackbar.make(
-                    btnSave,
-                    "Запись сохранена ✅",
-                    Snackbar.LENGTH_SHORT)
-                    .show()
-                etNote.text.clear()
-            }
-        }.start()
     }
 
     fun startFloatingAnimation(view: View, duration: Long) {
@@ -260,17 +289,12 @@ class MainActivity : AppCompatActivity() {
             repeatMode = ValueAnimator.REVERSE
             interpolator = AccelerateDecelerateInterpolator()
         }
-
         val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
-            this.duration = duration + 800 // Разная скорость для естественности
+            this.duration = duration + 800
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
             interpolator = AccelerateDecelerateInterpolator()
         }
-
-        AnimatorSet().apply {
-            playTogether(animX, animY)
-            start()
-        }
+        AnimatorSet().apply { playTogether(animX, animY); start() }
     }
 }

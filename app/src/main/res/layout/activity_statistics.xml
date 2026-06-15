@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/themeBackgroundColor"
     tools:context=".StatisticsActivity">
 
     <FrameLayout
         android:id="@+id/backgroundContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EAF3FF"> <!-- Основной градиент -->
+        android:background="?attr/themeBackgroundColor"> <!-- Основной градиент -->
 
         <!-- Пятно 1 -->
         <View
@@ -35,12 +35,6 @@
             android:layout_gravity="bottom|start"
             android:background="@drawable/oval_violet_gradient" />
 
-        <!-- МАТовый слой (Glassmorphism) -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#60FFFFFF" /> <!-- Полупрозрачный белый -->
-
     </FrameLayout>
 
     <FrameLayout
@@ -48,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/field_frame_2"
-        android:backgroundTint="@color/lavender"
+        android:backgroundTint="?attr/themeAccentColor"
         android:paddingTop="27dp"
         tools:ignore="MissingConstraints">
 
@@ -57,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
             android:layout_marginStart="17dp"
-            android:text="📊 Статистика"
+            android:text="@string/screen_stats"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -67,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
-            android:backgroundTint="@color/lavender"
+            android:backgroundTint="@color/blue_primary"
             android:gravity="center"
             android:padding="10dp"
             android:layout_marginEnd="12dp"
@@ -138,7 +132,7 @@
                 android:background="@drawable/field_light"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Настроение"
+                android:text="@string/chart_mood"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -162,7 +156,7 @@
                 android:background="@drawable/field_light"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Место"
+                android:text="@string/chart_location"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -186,7 +180,7 @@
                 android:background="@drawable/field_light"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Погода"
+                android:text="@string/chart_weather"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -213,7 +207,7 @@
                 android:background="@drawable/field_light"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Календарь настроения"
+                android:text="@string/calendar_title"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -232,8 +226,8 @@
                 android:id="@+id/btnExportReport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/lavender"
-                android:text="📸 Сохранить отчёт"
+                android:backgroundTint="?attr/themeAccentColor"
+                android:text="@string/save_data"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"

@@ -3,7 +3,6 @@ package com.emotionme.stable
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -17,9 +16,10 @@ import java.util.*
 
 class NotesActivity : AppCompatActivity() {
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        LanguageManager.applyLanguage(this)
+        ThemeManager.applyTheme(this)
         enableEdgeToEdge()
         setContentView(R.layout.activity_notes)
 
@@ -38,10 +38,11 @@ class NotesActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener { finish() }
 
-        val periods = listOf("Сегодня",
-            "Неделя",
-            "Текущий месяц",
-            "3 месяца"
+        val periods = listOf(
+            getString(R.string.period_today),
+            getString(R.string.period_week),
+            getString(R.string.period_month),
+            getString(R.string.period_3month)
         )
 
         val adapter = ArrayAdapter(this, R.layout.item_spinner, periods)
@@ -64,7 +65,6 @@ class NotesActivity : AppCompatActivity() {
             return cal.timeInMillis
         }
 
-        @SuppressLint("SetTextI18n")
         fun load(from: Long) {
             Thread {
                 val entries = db.moodDao().getAll(userId)
@@ -75,7 +75,7 @@ class NotesActivity : AppCompatActivity() {
 
                     if (entries.isEmpty()) {
                         val empty = TextView(this).apply {
-                            text = "Заметок за этот период нет\n\n(╯°□°）╯︵ ┻━┻ "
+                            setText(R.string.notes_empty)
                             textSize = 20f
                             setPadding(32, 64, 32, 32)
                             gravity = Gravity.CENTER
@@ -103,6 +103,7 @@ class NotesActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
                 load(fromForPosition(pos))
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }

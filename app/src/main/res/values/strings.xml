@@ -1,67 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EmotionMe</string>
-    <!--  Auth  -->
-    <string name="welcome">Добро пожаловать!</string>
-    <string name="hint_login">Логин или электронная почта</string>
+
+    <!-- Auth -->
+    <string name="welcome">👋 Добро пожаловать!</string>
+    <string name="hint_login">Имя пользователя</string>
     <string name="hint_password">Пароль</string>
-    <string name="btn_login">Войти // 🔐</string>
-    <string name="btn_register">Регистрация</string>
-    <string name="track_mood">Track your mood</string>
-    <string name="error_fill_fields">Заполните поля!</string>
-    <string name="error_wrong_credentials">Неверный логин или пароль</string>
-    <string name="error_user_exists">Пользователь уже существует!</string>
-    <!--  Main  -->
+    <string name="btn_login">Войти 🔐</string>
+    <string name="btn_register">Зарегистрироваться</string>
+    <string name="track_mood">Отслеживай своё настроение</string>
+
+    <!-- Errors -->
+    <string name="error_fill_fields">Пожалуйста, заполни все поля! 💭</string>
+    <string name="error_wrong_credentials">Неверный логин или пароль ❌</string>
+    <string name="error_user_exists">Пользователь уже существует! ❌</string>
+    <string name="error_password_not_enough_chars">Пароль должен содержать не менее 5 символов 💡</string>
+
+    <!-- Other -->
+    <string name="info1">Новый пользователь? Кликните сюда, чтобы создать аккаунт</string>
+    <string name="info2">Как насчёт того, чтобы сделать запись о своём настроении?</string>
+    <string name="info3">Здесь отображается настроение, которое ты отметил(-а) 😍</string>
+    <string name="info4">Здесь отображаются места, где ты чаще всего бывал(-а) в этом месяце 🏞️</string>
+    <string name="info5">Здесь отображается погода, которую ты чаще всего наблюдал(-а) в этом месяце ☀️</string>
+    <string name="info6">Это календарь настроения, каждый месяц на нём появляется уникальный рисунок! 📅</string>
+    <string name="generating">Генерация…</string>
+    <string name="finished">Готово</string>
+    <string name="username_default">Гость</string>
+    <string name="share">Поделиться</string>
+    <string name="share_data">Поделиться отчётом</string>
+    <string name="save_data">📸 Сохранить отчёт</string>
+    <string name="error_saving_data">Ошибка при сохранении 😞</string>
+    <string name="no_data_column">Нет данных для отображения (╯°□°）╯︵ ┻━┻</string>
+
+    <!-- Greetings -->
+    <string name="greets1">Как дела</string>
+    <string name="greets2">Привет</string>
+    <string name="greets3">Как проходит день</string>
+    <string name="greets4">Рады видеть тебя</string>
+    <string name="greets5">Как настроение</string>
+    <string name="greets6">А вот и ты!</string>
+
+    <!-- Main -->
     <string name="screen_main">Главная</string>
-    <string name="describe_moment">Опиши свой момент</string>
-    <string name="hint_note">Здесь можно оставить заметку…</string>
-    <string name="btn_save">Сохранить</string>
-    <string name="btn_stats">Статистика</string>
-    <string name="saved">Запись сохранена</string>
-    <!--  Moods  -->
+    <string name="describe_moment">Опиши свой момент 🌟</string>
+    <string name="hint_note">Оставь заметку здесь…</string>
+    <string name="btn_save">Сохранить 💾</string>
+    <string name="btn_stats">Статистика 📊</string>
+    <string name="btn_notes">Заметки 💭</string>
+    <string name="btn_save_confirm">Нажми ещё раз, чтобы сохранить</string>
+    <string name="saved">Запись сохранена ✅</string>
+    <string name="hint_byn_group">Посмотреть записи</string>
+
+    <!-- Moods -->
+    <string name="mood_happy">🥰 Счастье</string>
     <string name="mood_joy">😊 Радость</string>
+    <string name="mood_calm">😇 Умиротворение</string>
     <string name="mood_neutral">😐 Нейтрально</string>
+    <string name="mood_tired">😴 Усталость</string>
     <string name="mood_sad">😢 Грусть</string>
     <string name="mood_angry">😡 Злость</string>
-    <!--  Places  -->
-    <string name="place_home">Дом</string>
-    <string name="place_work">Учёба / Работа</string>
-    <string name="place_walk">Прогулка</string>
-    <!--  Weather  -->
-    <string name="weather_clear">Ясно</string>
-    <string name="weather_cloudy">Пасмурно</string>
-    <string name="weather_bad">Непогода</string>
-    <!--  Motivation — bad  -->
+    <string name="mood_happy_color">Счастье</string>
+    <string name="mood_joy_color">Радость</string>
+    <string name="mood_calm_color">Умиротворение</string>
+    <string name="mood_neutral_color">Нейтрально</string>
+    <string name="mood_tired_color">Усталость</string>
+    <string name="mood_sad_color">Грусть</string>
+    <string name="mood_angry_color">Злость</string>
+
+    <!-- Places -->
+    <string name="place_home">🏡 Дома</string>
+    <string name="place_work">\uD83D\uDCDA На учёбе | \uD83D\uDCBC На работе</string>
+    <string name="place_walk">⛺ На прогулке</string>
+    <string name="place_on_the_way">\uD83D\uDEB6 В пути | \uD83D\uDE99 В транспорте</string>
+    <string name="place_guest">\uD83E\uDD42 В гостях</string>
+    <string name="place_cafe">\uD83C\uDF5D В ресторане | ☕ В кафе</string>
+    <string name="place_shopping">\uD83D\uDCB3 В магазине</string>
+    <string name="place_travel">\uD83D\uDDFA\uFE0F В путешествии</string>
+    <string name="place_party">\uD83C\uDF89 На вечеринке</string>
+
+    <!-- Weather -->
+    <string name="weather_clear">☀️ Солнечно</string>
+    <string name="weather_cloudy1">⛅ Пасмурно</string>
+    <string name="weather_cloudy2">☁️ Облачно</string>
+    <string name="weather_bad">⛈️ Непогода</string>
+
+    <!-- Motivation bad -->
     <string name="motiv_bad_1">Ты справишься!</string>
-    <string name="motiv_bad_2">Не сдавайся, ты не один.</string>
-    <string name="motiv_bad_3">Даже трудные дни проходят.</string>
-    <string name="motiv_bad_4">Не переживай, работа принесёт свои плоды.</string>
-    <!--  Motivation — good  -->
-    <string name="motiv_good_1">Превосходный день, так держать! ❤️</string>
-    <string name="motiv_good_2">Хорошо идём, пусть дальше будет также хорошо! 🤞</string>
-    <string name="motiv_good_3">Пусть завтрашний день будет таким же хорошим. 🤩</string>
-    <!--  Statistics  -->
-    <string name="screen_stats">Статистика</string>
-    <string name="period_day">День</string>
-    <string name="period_week">Неделя</string>
-    <string name="period_month">Месяц</string>
+    <string name="motiv_bad_2">Не сдавайся, ты не один</string>
+    <string name="motiv_bad_3">Даже трудные дни проходят</string>
+    <string name="motiv_bad_4">Не переживай, твои усилия окупятся</string>
+
+    <!-- Motivation good -->
+    <string name="motiv_good_1">Потрясающий день, так держать</string>
+    <string name="motiv_good_2">Хорошо идём, пусть дальше будет также хорошо, а то и лучше! 😉</string>
+    <string name="motiv_good_3">Пусть завтрашний день будет таким же хорошим как сегодняшний 🤩</string>
+
+    <!-- Motivation tired -->
+    <string name="motiv_tired_1">Усталость - это временно, отдых - это святое! 🛌</string>
+    <string name="motiv_tired_2">Обязательно хорошенько отдохни</string>
+    <string name="motiv_tired_3">Если чувствуешь усталость - отдохни, не нагружай себя</string>
+    <string name="motiv_tired_4">Усталость - помеха хорошей работе, не переусердствуй</string>
+
+    <!-- Statistics -->
+    <string name="screen_stats">📊 Статистика</string>
+    <string name="period_today">Сегодня</string>
+    <string name="period_week">За последнюю неделю</string>
+    <string name="period_month">За последний месяц</string>
+    <string name="period_3month">За последние 3 месяца</string>
     <string name="chart_mood">Настроение</string>
-    <string name="chart_location">Местоположение</string>
+    <string name="chart_location">Место</string>
     <string name="chart_weather">Погода</string>
-    <!--  Settings  -->
-    <string name="screen_settings">Настройки</string>
-    <string name="notifications">Уведомления</string>
-    <string name="notification_time">Время уведомлений</string>
+    <string name="calendar_title">Календарь настроения</string>
+
+    <!-- Notifications -->
+    <string name="notification_title">Как проходит день?</string>
+    <string name="notification_text">Не забудь отметить настроение в приложении 😊</string>
+
+    <!-- Settings -->
+    <string name="screen_settings">⚙️ Настройки</string>
+    <string name="notifications">Уведомления 🔕 | 🔔</string>
+    <string name="notification_time">⏰ Время уведомлений</string>
     <string name="btn_logout">Выйти из аккаунта</string>
-    <string name="notification_status_changed">Статус уведомлений изменён!</string>
-    <string name="label_theme">Тема оформления</string>
-    <string name="label_language">Язык</string>
-    <!--  Themes  -->
-    <string name="theme_purple">Фиолетовый</string>
-    <string name="theme_orange">Оранжевый</string>
-    <string name="theme_blue">Синий</string>
-    <string name="theme_mono">Монохромный</string>
-    <string name="theme_green">Зелёный</string>
-    <!--  Languages  -->
-    <string name="lang_russian">Русский</string>
-    <string name="lang_english">English</string>
+    <string name="btn_logout_confirm">Нажми ещё раз, чтобы выйти</string>
+    <string name="btn_logout_action">Завершаем сессию…</string>
+    <string name="notification_on">Уведомления включены ✅</string>
+    <string name="notification_off">Уведомления выключены ❌</string>
+    <string name="label_theme">🎨 Цветовая тема</string>
+    <string name="label_language">🌐 Язык</string>
+    <string name="btn_password_change">Изменить пароль</string>
+    <string name="theme_changed">Тема изменена — перезапустите приложение</string>
+    <string name="theme_restart">Перезапустить</string>
+    <string name="lang_changed">Язык изменён — перезапустите приложение</string>
+
+    <!-- Version -->
+    <string name="app_version">Версия 1.6.1 (26.6.15beta)</string>
+    <string name="app_info">EmotionMe version 1.6.1 beta build June 15th, 2026 by KrisWinther</string>
+
+    <!-- Themes -->
+    <string name="theme_red">❤️ Красный</string>
+    <string name="theme_orange">🧡 Оранжевый</string>
+    <string name="theme_yellow">💛 Жёлтый</string>
+    <string name="theme_green">💚 Зелёный</string>
+    <string name="theme_blue">💙 Синий</string>
+    <string name="theme_purple">💜 Фиолетовый</string>
+    <string name="theme_pink">🩷 Розовый</string>
+    <string name="theme_mono">🖤 Монохром</string>
+
+    <!-- Languages -->
+    <string name="lang_russian">🇷🇺 Русский</string>
+    <string name="lang_english">🇬🇧 English</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_hello_title">👋 Привет! Познакомимся?</string>
+    <string name="onboarding_hello_subtitle">Как нам к тебе обращаться?</string>
+    <string name="onboarding_name_hint">Твоё имя тут</string>
+    <string name="onboarding_name_error">Введи своё имя 😊</string>
+    <string name="onboarding_symptoms_title">🌡 Начальное состояние</string>
+    <string name="onboarding_symptoms_subtitle">Что ты замечаешь у себя прямо сейчас? Можно выбрать несколько</string>
+    <string name="onboarding_symptoms_error">Выбери хотя бы один вариант</string>
+    <string name="onboarding_goal_title">🎯 Твоя цель</string>
+    <string name="onboarding_goal_subtitle">Для чего ты хочешь использовать EmotionMe?</string>
+    <string name="onboarding_goal_error">Выбери цель 🎯</string>
+    <string name="onboarding_frequency_title">📓 Частота записей</string>
+    <string name="onboarding_frequency_subtitle">Как часто ты планируешь вести дневник?</string>
+    <string name="onboarding_frequency_error">Выбери частоту ведения дневника</string>
+    <string name="btn_next">Далее</string>
+    <string name="btn_finish">✅ Начать</string>
+    <string name="btn_onboarding_redo">🔄 Пройти анкету заново</string>
+
+    <!-- Symptoms -->
+    <string name="symptom_fatigue">😴 Быстрая усталость</string>
+    <string name="symptom_anxiety">😰 Частая тревога</string>
+    <string name="symptom_irritability">😤 Раздражительность</string>
+    <string name="symptom_emptiness">😶 Эмоциональная пустота</string>
+    <string name="symptom_depression">😔 Подавленное настроение</string>
+    <string name="symptom_thoughts">🤯 Перегруженность мыслями</string>
+    <string name="symptom_sleep">🛌 Нарушения сна</string>
+    <string name="symptom_good">🙂 Чувствую себя хорошо</string>
+
+    <!-- Goals -->
+    <string name="goal_stress">🧘 Снизить уровень стресса</string>
+    <string name="goal_track">📈 Отслеживать динамику настроения</string>
+    <string name="goal_sleep">💤 Улучшить качество сна</string>
+    <string name="goal_emotions">🤝 Лучше понять свои эмоции</string>
+    <string name="goal_productivity">⚡ Повысить продуктивность</string>
+    <string name="goal_happy">😊 Стать счастливее в повседневной жизни</string>
+
+    <!-- Frequencies -->
+    <string name="freq_daily">📅 Ежедневно</string>
+    <string name="freq_several">📆 Несколько раз в неделю</string>
+    <string name="freq_weekly">🗓 Раз в неделю</string>
+    <string name="freq_needed">🔔 Когда почувствую необходимость</string>
+
+    <!-- Answers screen -->
+    <string name="screen_answers">📝 Мои ответы</string>
+    <string name="answers_name_label">Имя</string>
+    <string name="answers_symptoms_label">Начальное состояние</string>
+    <string name="answers_goal_label">Цель</string>
+    <string name="answers_frequency_label">Частота записей</string>
+    <string name="answers_started_label">Записи начались</string>
+    <string name="answers_active_days_label">Дней с записями</string>
+    <string name="answers_no_data">Не указано</string>
+    <string name="answers_days_suffix">дн.</string>
+    <string name="btn_answers">📝 Мои ответы на анкету</string>
+
+    <!-- Password -->
+    <string name="screen_password">🔑 Пароль</string>
+    <string name="hint_to_user_password">Запомни свой новый пароль! Восстановить старый уже не получится</string>
+    <string name="hint_current_password">Текущий пароль</string>
+    <string name="hint_new_password">Новый пароль</string>
+    <string name="hint_confirm_password">Подтверди пароль, нажми ещё раз</string>
+    <string name="btn_save_password">Обновить пароль</string>
+    <string name="error_passwords_not_match">Пароли не совпадают ❌</string>
+    <string name="error_wrong_current_password">Неверный текущий пароль ❌</string>
+    <string name="password_changed">Пароль успешно изменён ✅</string>
+
+    <!-- Notes -->
+    <string name="screen_notes">💭 Заметки</string>
+    <string name="note_deleted">Заметка очищена</string>
+    <string name="notes_empty">Заметок за этот период нет
+
+(╯°□°）╯︵ ┻━┻</string>
+
+    <!-- Months -->
+    <string name="month1">Январь</string>
+    <string name="month2">Февраль</string>
+    <string name="month3">Март</string>
+    <string name="month4">Апрель</string>
+    <string name="month5">Май</string>
+    <string name="month6">Июнь</string>
+    <string name="month7">Июль</string>
+    <string name="month8">Август</string>
+    <string name="month9">Сентябрь</string>
+    <string name="month10">Октябрь</string>
+    <string name="month11">Ноябрь</string>
+    <string name="month12">Декабрь</string>
+
+    <!-- Days -->
+    <string name="day1">ПН</string>
+    <string name="day2">ВТ</string>
+    <string name="day3">СР</string>
+    <string name="day4">ЧТ</string>
+    <string name="day5">ПТ</string>
+    <string name="day6">СБ</string>
+    <string name="day7">ВС</string>
+
+    <string name="report_header">📊 Отчёт за %1$s %2$d</string>
+    <string name="report_footer">Сгенерировано в EmotionMe ❤️</string>
 </resources>

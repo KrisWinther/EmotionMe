@@ -3,17 +3,22 @@
     <color name="black">#FF000000</color>
     <color name="grey">#FF9E9E9E</color>
     <color name="dark_grey">#454545</color>
+    <color name="silver">#d4d4d4</color>
     <color name="decorative_white">#FFFFFFFF</color>
     <color name="purple_primary">#8860D0</color>
     <color name="purple_background">#FBEBFC</color>
     <color name="orange_primary">#FF7D03</color>
     <color name="orange_background">#FCEDDC</color>
-    <color name="blue_primary">#5AB9EA</color>
-    <color name="blue_background">#e8f7ff</color>
-    <color name="mono_primary">#FF000000</color>
+    <color name="red_primary">#ff4242</color>
+    <color name="red_background">#ffe8e8</color>
+    <color name="pink_primary">#ff4dac</color>
+    <color name="pink_background">#ffd1ea</color>
+    <color name="mono_primary">#202020</color>
     <color name="mono_background">#DBDAD9</color>
     <color name="green_primary">#3DAA6A</color>
     <color name="green_background">#DFF5E8</color>
-    <color name="lavender">#476fff</color>
-    <color name="light_lavender">#e8f7ff</color>
+    <color name="blue_primary">#476fff</color>
+    <color name="blue_background">#e8f7ff</color>
+    <color name="yellow_primary">#ffc800</color>
+    <color name="yellow_background">#fffbd9</color>
 </resources>

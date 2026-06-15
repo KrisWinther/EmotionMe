@@ -5,14 +5,14 @@
     android:id="@+id/auth"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/themeBackgroundColor"
     tools:context=".AuthActivity">
 
     <FrameLayout
         android:id="@+id/backgroundContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EAF3FF"> <!-- Основной градиент -->
+        android:background="?attr/themeBackgroundColor"> <!-- Основной градиент -->
 
         <!-- Пятно 1 -->
         <View
@@ -37,12 +37,6 @@
             android:layout_gravity="bottom|start"
             android:background="@drawable/oval_violet_gradient" />
 
-        <!-- МАТовый слой (Glassmorphism) -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#60FFFFFF" /> <!-- Полупрозрачный белый -->
-
     </FrameLayout>
 
     <LinearLayout
@@ -54,11 +48,24 @@
         android:paddingBottom="10dp"
         tools:ignore="MissingConstraints">
 
+        <TextView
+            android:id="@+id/btnSettingsStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:backgroundTint="@color/blue_primary"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/white"
+            app:drawableEndCompat="@drawable/baseline_settings_24"
+            app:drawableTint="?attr/themeAccentColor"
+            android:textSize="30sp"/>
+
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="125dp"
             android:background="@drawable/icon_bg"
             android:backgroundTint="@color/white">
 
@@ -76,7 +83,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="EmotionMe"
+            android:text="@string/app_name"
             android:textColor="@color/black"
             android:textSize="45sp"
             android:textStyle="bold" />
@@ -94,58 +101,42 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:padding="5dp"
-                android:text="👋 Добро пожаловать!"
+                android:text="@string/welcome"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/field_light"
-            android:backgroundTint="@color/white"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
 
             <EditText
                 android:id="@+id/etLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:backgroundTint="@color/lavender"
-                android:hint="Логин"
-                android:inputType="text"
-                android:padding="15dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey"
-                app:layout_constraintTop_toTopOf="parent" />
-        </FrameLayout>
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:background="@drawable/field_light"
+                android:hint="@string/hint_login"
+                android:padding="20dp"
+                android:inputType="text"
+                android:autofillHints="name"/>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/field_dark"
-            android:backgroundTint="@color/black"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
 
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:backgroundTint="@color/lavender"
-                android:hint="Пароль"
+                android:layout_marginTop="10dp"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:padding="15dp"
+                android:padding="20dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/grey"
-                app:layout_constraintTop_toTopOf="@id/etLogin" />
-        </FrameLayout>
+                android:background="@drawable/field_dark"
+                app:layout_constraintTop_toTopOf="@id/etLogin"
+                android:autofillHints="password"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
@@ -157,7 +148,7 @@
             android:layout_marginEnd="50dp"
             android:backgroundTint="@color/black"
             android:gravity="center"
-            android:text="🔑 Войти"
+            android:text="@string/btn_login"
             android:textColor="@color/white"
             app:cornerRadius="15dp"
             app:layout_constraintStart_toEndOf="parent"
@@ -170,8 +161,8 @@
             android:layout_gravity="center"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
-            android:backgroundTint="@color/lavender"
-            android:text="Регистрация"
+            android:backgroundTint="?attr/themeAccentColor"
+            android:text="@string/btn_register"
             android:textColor="@color/white"
             app:cornerRadius="15dp" />
 
@@ -181,7 +172,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="Новый пользователь? Кликните сюда, чтобы создать аккаунт"
+            android:text="@string/info1"
             android:textColor="@color/dark_grey"
             android:textSize="12sp" />
 

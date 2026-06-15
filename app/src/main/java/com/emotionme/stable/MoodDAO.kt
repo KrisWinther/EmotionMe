@@ -7,61 +7,40 @@ import androidx.room.Query
 @Dao
 interface MoodDAO {
 
-    // Mood
+    // Вставка
+    @Insert
+    fun insert(entry: MoodEntry)
+
+    @Query("UPDATE mood_entries SET note = '' WHERE id = :entryId")
+    fun clearNote(entryId: Int)
+
+    // Статистика по KEY-полям (основные — для графиков)
 
     @Query("""
-        SELECT mood AS label, COUNT(*) AS count
-        FROM mood_entries
-        WHERE userId = :uid AND timestamp >= :from
-        GROUP BY mood
-    """)
-    fun getMoodStatsFrom(uid: Long, from: Long): List<StatItem>
-
-    // Location
-
-    @Query("""
-        SELECT location AS label, COUNT(*) AS count
-        FROM mood_entries
-        WHERE userId = :uid AND timestamp >= :from
-        GROUP BY location
-    """)
-    fun getLocationStatsFrom(uid: Long, from: Long): List<StatItem>
-
-    // Weather
-
-    @Query("""
-        SELECT weather AS label, COUNT(*) AS count
-        FROM mood_entries
-        WHERE userId = :uid AND timestamp >= :from
-        GROUP BY weather
-    """)
-    fun getWeatherStatsFrom(uid: Long, from: Long): List<StatItem>
-
-    @Query("""
-        SELECT mood AS label, COUNT(*) AS count
+        SELECT moodKey AS label, COUNT(*) AS count
         FROM mood_entries
         WHERE userId = :uid AND timestamp >= :from AND timestamp < :to
-        GROUP BY mood
+        GROUP BY moodKey
     """)
     fun getMoodStatsRange(uid: Long, from: Long, to: Long): List<StatItem>
 
     @Query("""
-        SELECT location AS label, COUNT(*) AS count
+        SELECT locationKey AS label, COUNT(*) AS count
         FROM mood_entries
         WHERE userId = :uid AND timestamp >= :from AND timestamp < :to
-        GROUP BY location
+        GROUP BY locationKey
     """)
     fun getLocationStatsRange(uid: Long, from: Long, to: Long): List<StatItem>
 
     @Query("""
-        SELECT weather AS label, COUNT(*) AS count
+        SELECT weatherKey AS label, COUNT(*) AS count
         FROM mood_entries
         WHERE userId = :uid AND timestamp >= :from AND timestamp < :to
-        GROUP BY weather
+        GROUP BY weatherKey
     """)
     fun getWeatherStatsRange(uid: Long, from: Long, to: Long): List<StatItem>
 
-    // Доминирующая эмоция по дню, группировка
+    // Все записи диапазона (для календаря доминирующего настроения)
 
     @Query("""
         SELECT * FROM mood_entries
@@ -70,21 +49,28 @@ interface MoodDAO {
     """)
     fun getEntriesRange(uid: Long, from: Long, to: Long): List<MoodEntry>
 
-    @Insert
-    fun insert(entry: MoodEntry)
+    // Для мотивационного блока в MainActivity
 
     @Query("""
-        SELECT mood, COUNT(*) AS count
+        SELECT moodKey AS mood, COUNT(*) AS count
         FROM mood_entries
-        WHERE userId = :uid
-        AND timestamp >= :from
-        GROUP BY mood
+        WHERE userId = :uid AND timestamp >= :from
+        GROUP BY moodKey
     """)
     fun getStatsFrom(uid: Long, from: Long): List<MoodStat>
 
+    // Все записи пользователя
     @Query("SELECT * FROM mood_entries WHERE userId = :userId ORDER BY timestamp DESC")
     fun getAll(userId: Long): List<MoodEntry>
 
-    @Query("UPDATE mood_entries SET note = '' WHERE id = :entryId")
-    fun clearNote(entryId: Int)
+    // AnswersActivity
+
+    @Query("SELECT MIN(timestamp) FROM mood_entries WHERE userId = :uid")
+    fun getFirstEntryTimestamp(uid: Long): Long?
+
+    @Query("""
+        SELECT COUNT(DISTINCT (timestamp / 86400000))
+        FROM mood_entries WHERE userId = :uid
+    """)
+    fun getActiveDaysCount(uid: Long): Int
 }

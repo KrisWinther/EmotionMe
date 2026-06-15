@@ -1,67 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">EmotionMe</string>
-    <!--  Auth  -->
-    <string name="welcome">Welcome!</string>
-    <string name="hint_login">Login or email</string>
+
+    <!-- Auth -->
+    <string name="welcome">👋 Welcome!</string>
+    <string name="hint_login">Username</string>
     <string name="hint_password">Password</string>
-    <string name="btn_login">Sign in // 🔐</string>
+    <string name="btn_login">Sign in 🔐</string>
     <string name="btn_register">Register</string>
     <string name="track_mood">Track your mood</string>
-    <string name="error_fill_fields">Please fill in all fields!</string>
-    <string name="error_wrong_credentials">Invalid login or password</string>
-    <string name="error_user_exists">User already exists!</string>
-    <!--  Main  -->
+    <string name="error_fill_fields">Please fill in all fields! 💬</string>
+    <string name="error_wrong_credentials">Invalid login or password ❌</string>
+    <string name="error_user_exists">User already exists! ❌</string>
+    <string name="error_password_not_enough_chars">Your new password must contain at least 5 chars 💡</string>
+
+    <!-- Other -->
+    <string name="info1">New user? Click here to create an account</string>
+    <string name="info2">How about recording your mood?</string>
+    <string name="info3">The mood that you have noted is displayed here 😍</string>
+    <string name="info4">It shows the places where you have been most often this month 🏞️</string>
+    <string name="info5">It shows the weather you have seen most often this month ☀️</string>
+    <string name="info6">This is a mood calendar, and a unique drawing appears on it every month! 📅</string>
+    <string name="generating">Creating a card…</string>
+    <string name="finished">Done</string>
+    <string name="username_default">Guest</string>
+    <string name="share">Share</string>
+    <string name="share_data">Share statistics</string>
+    <string name="save_data">📸 Save data</string>
+    <string name="error_saving_data">Error saving 😞</string>
+    <string name="no_data_column">No data to present yet (╯°□°）╯︵ ┻━┻</string>
+
+    <!-- Greetings -->
+    <string name="greets1">What\'s up</string>
+    <string name="greets2">Hey</string>
+    <string name="greets3">How is your day</string>
+    <string name="greets4">Nice to see you</string>
+    <string name="greets5">How is your mood</string>
+    <string name="greets6">Here you are!</string>
+
+    <!-- Main -->
     <string name="screen_main">Home</string>
-    <string name="describe_moment">Describe your moment</string>
+    <string name="describe_moment">Describe your moment🌟</string>
     <string name="hint_note">Leave a note here…</string>
-    <string name="btn_save">Save</string>
-    <string name="btn_stats">Statistics</string>
-    <string name="saved">Entry saved</string>
-    <!--  Moods  -->
+    <string name="btn_save">Save 💾</string>
+    <string name="btn_stats">Statistics 📊</string>
+    <string name="btn_notes">Notes 💭</string>
+    <string name="btn_save_confirm">Click again to confirm saving</string>
+    <string name="saved">Entry saved ✅</string>
+    <string name="hint_byn_group">Check entries</string>
+
+    <!-- Moods -->
+    <string name="mood_happy">🥰 Happiness</string>
     <string name="mood_joy">😊 Joy</string>
+    <string name="mood_calm">😇 Calm</string>
     <string name="mood_neutral">😐 Neutral</string>
+    <string name="mood_tired">😴 Fatigue</string>
     <string name="mood_sad">😢 Sadness</string>
     <string name="mood_angry">😡 Anger</string>
-    <!--  Places  -->
-    <string name="place_home">Home</string>
-    <string name="place_work">School / Work</string>
-    <string name="place_walk">Walk</string>
-    <!--  Weather  -->
-    <string name="weather_clear">Clear</string>
-    <string name="weather_cloudy">Cloudy</string>
-    <string name="weather_bad">Bad weather</string>
-    <!--  Motivation — bad  -->
-    <string name="motiv_bad_1">You\'ll get through this!</string>
-    <string name="motiv_bad_2">Don\'t give up, you\'re not alone.</string>
-    <string name="motiv_bad_3">Even tough days pass.</string>
-    <string name="motiv_bad_4">Don\'t worry, your efforts will pay off.</string>
-    <!--  Motivation — good  -->
-    <string name="motiv_good_1">Amazing day, keep it up! ❤️</string>
-    <string name="motiv_good_2">Going great, hope it stays this way! 🤞</string>
-    <string name="motiv_good_3">May tomorrow be just as wonderful. 🤩</string>
-    <!--  Statistics  -->
-    <string name="screen_stats">Statistics</string>
-    <string name="period_day">Day</string>
-    <string name="period_week">Week</string>
-    <string name="period_month">Month</string>
+    <string name="mood_happy_color">Happiness</string>
+    <string name="mood_joy_color">Joy</string>
+    <string name="mood_calm_color">Calm</string>
+    <string name="mood_neutral_color">Neutral</string>
+    <string name="mood_tired_color">Fatigue</string>
+    <string name="mood_sad_color">Sadness</string>
+    <string name="mood_angry_color">Anger</string>
+
+    <!-- Places -->
+    <string name="place_home">🏡 At home</string>
+    <string name="place_work">\uD83D\uDCDA At studies | \uD83D\uDCBC At work</string>
+    <string name="place_walk">⛺ On a walk</string>
+    <string name="place_on_the_way">\uD83D\uDEB6 On a trip | \uD83D\uDE99 In transport</string>
+    <string name="place_guest">\uD83E\uDD42 Visiting</string>
+    <string name="place_cafe">\uD83C\uDF5D In the restaurant | ☕ In the cafe</string>
+    <string name="place_shopping">\uD83D\uDCB3 Shopping</string>
+    <string name="place_travel">\uD83D\uDDFA\uFE0F On a journey</string>
+    <string name="place_party">\uD83C\uDF89 At the party</string>
+
+    <!-- Weather -->
+    <string name="weather_clear">☀️ Sunny</string>
+    <string name="weather_cloudy1">⛅ A little cloudy</string>
+    <string name="weather_cloudy2">☁️ Cloudy</string>
+    <string name="weather_bad">⛈️ Bad weather</string>
+
+    <!-- Motivation bad -->
+    <string name="motiv_bad_1">You\'ll get through this</string>
+    <string name="motiv_bad_2">Don\'t give up, you\'re not alone</string>
+    <string name="motiv_bad_3">Even tough days pass</string>
+    <string name="motiv_bad_4">Don\'t worry, your efforts will pay off</string>
+
+    <!-- Motivation good -->
+    <string name="motiv_good_1">Amazing day, keep it up</string>
+    <string name="motiv_good_2">Going great, hope it stays this way 😉</string>
+    <string name="motiv_good_3">May tomorrow be just as wonderful 🤩</string>
+
+    <!-- Motivation tired -->
+    <string name="motiv_tired_1">Fatigue is temporary, and rest is sacred! 🛌</string>
+    <string name="motiv_tired_2">Be sure to have a good rest </string>
+    <string name="motiv_tired_3">If you feel tired, take a rest, don\'t burden yourself</string>
+    <string name="motiv_tired_4">Fatigue is an obstacle to good work, don\'t overdo it!</string>
+
+    <!-- Statistics -->
+    <string name="screen_stats">📊 Statistics</string>
+    <string name="period_today">Today</string>
+    <string name="period_week">Last week</string>
+    <string name="period_month">Last month</string>
+    <string name="period_3month">Last 3 months</string>
     <string name="chart_mood">Mood</string>
     <string name="chart_location">Location</string>
     <string name="chart_weather">Weather</string>
-    <!--  Settings  -->
-    <string name="screen_settings">Settings</string>
-    <string name="notifications">Notifications</string>
-    <string name="notification_time">Notification time</string>
+    <string name="calendar_title">Mood calendar</string>
+
+    <!-- Notifications -->
+    <string name="notification_title">How is your day going?</string>
+    <string name="notification_text">Don\'t forget to mark your mood in EmotionMe 😊</string>
+
+    <!-- Settings -->
+    <string name="screen_settings">⚙️ Settings</string>
+    <string name="notifications">Notifications 🔕 | 🔔</string>
+    <string name="notification_time">⏰ Notification time</string>
     <string name="btn_logout">Log out</string>
-    <string name="notification_status_changed">Notification status changed!</string>
-    <string name="label_theme">Theme</string>
-    <string name="label_language">Language</string>
-    <!--  Themes  -->
-    <string name="theme_purple">Purple</string>
-    <string name="theme_orange">Orange</string>
-    <string name="theme_blue">Blue</string>
-    <string name="theme_mono">Monochrome</string>
-    <string name="theme_green">Green</string>
-    <!--  Languages  -->
-    <string name="lang_russian">Русский</string>
-    <string name="lang_english">English</string>
+    <string name="btn_logout_confirm">Tap again to log out</string>
+    <string name="btn_logout_action">Ending session…</string>
+    <string name="notification_on">Notifications enabled ✅</string>
+    <string name="notification_off">Notifications disabled ❌</string>
+    <string name="label_theme">🎨 Color theme</string>
+    <string name="label_language">🌐 Language</string>
+    <string name="btn_password_change">Change password</string>
+    <string name="theme_changed">Theme changed — please restart the app</string>
+    <string name="theme_restart">Restart</string>
+    <string name="lang_changed">Language changed — please restart the app</string>
+
+    <!-- Version -->
+    <string name="app_version">Version 1.6.1 (26.6.15beta)</string>
+    <string name="app_info">EmotionMe version 1.6.1 beta build June 15th, 2026 by KrisWinther</string>
+
+    <!-- Themes -->
+    <string name="theme_red">❤️ Red</string>
+    <string name="theme_orange">🧡 Orange</string>
+    <string name="theme_yellow">💛 Yellow</string>
+    <string name="theme_green">💚 Green</string>
+    <string name="theme_blue">💙 Blue</string>
+    <string name="theme_purple">💜 Purple</string>
+    <string name="theme_pink">🩷 Pink</string>
+    <string name="theme_mono">🖤 Monochrome</string>
+
+    <!-- Languages -->
+    <string name="lang_russian">🇷🇺 Русский</string>
+    <string name="lang_english">🇬🇧 English</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_hello_title">👋 Hello! Let\'s get acquainted?</string>
+    <string name="onboarding_hello_subtitle">What should we call you?</string>
+    <string name="onboarding_name_hint">Your name here</string>
+    <string name="onboarding_name_error">Please enter your name 😊</string>
+    <string name="onboarding_symptoms_title">🌡 Initial state</string>
+    <string name="onboarding_symptoms_subtitle">What do you notice about yourself right now? You can choose several</string>
+    <string name="onboarding_symptoms_error">Please choose at least one option</string>
+    <string name="onboarding_goal_title">🎯 Your goal</string>
+    <string name="onboarding_goal_subtitle">What do you want to use EmotionMe for?</string>
+    <string name="onboarding_goal_error">Please choose a goal 🎯</string>
+    <string name="onboarding_frequency_title">📓 Entry frequency</string>
+    <string name="onboarding_frequency_subtitle">How often do you plan to keep a diary?</string>
+    <string name="onboarding_frequency_error">Please choose an entry frequency</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_finish">✅ Start</string>
+    <string name="btn_onboarding_redo">🔄 Redo questionnaire</string>
+
+    <!-- Symptoms -->
+    <string name="symptom_fatigue">😴 Quick fatigue</string>
+    <string name="symptom_anxiety">😰 Frequent anxiety</string>
+    <string name="symptom_irritability">😤 Irritability</string>
+    <string name="symptom_emptiness">😶 Emotional emptiness</string>
+    <string name="symptom_depression">😔 Depressed mood</string>
+    <string name="symptom_thoughts">🤯 Overwhelmed by thoughts</string>
+    <string name="symptom_sleep">🛌 Sleep disturbances</string>
+    <string name="symptom_good">🙂 Feeling good</string>
+
+    <!-- Goals -->
+    <string name="goal_stress">🧘 Reduce stress levels</string>
+    <string name="goal_track">📈 Track mood dynamics</string>
+    <string name="goal_sleep">💤 Improve sleep quality</string>
+    <string name="goal_emotions">🤝 Better understand my emotions</string>
+    <string name="goal_productivity">⚡ Boost productivity</string>
+    <string name="goal_happy">😊 Become happier in everyday life</string>
+
+    <!-- Frequencies -->
+    <string name="freq_daily">📅 Daily</string>
+    <string name="freq_several">📆 Several times a week</string>
+    <string name="freq_weekly">🗓 Once a week</string>
+    <string name="freq_needed">🔔 When I feel the need</string>
+
+    <!-- Answers screen -->
+    <string name="screen_answers">📝 My Answers</string>
+    <string name="answers_name_label">Name</string>
+    <string name="answers_symptoms_label">Initial state</string>
+    <string name="answers_goal_label">Goal</string>
+    <string name="answers_frequency_label">Entry frequency</string>
+    <string name="answers_started_label">Records started</string>
+    <string name="answers_active_days_label">Days with entries</string>
+    <string name="answers_no_data">Not specified</string>
+    <string name="answers_days_suffix">days</string>
+    <string name="btn_answers">📝 My questionnaire answers</string>
+
+    <!-- Password -->
+    <string name="screen_password">🔑 Password</string>
+    <string name="hint_current_password">Current password</string>
+    <string name="hint_to_user_password">Remember your new password! Ypu won\'t be able to restore it later</string>
+    <string name="hint_new_password">New password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="btn_save_password">Save password</string>
+    <string name="error_passwords_not_match">Passwords do not match ❌</string>
+    <string name="error_wrong_current_password">Incorrect current password ❌</string>
+    <string name="password_changed">Password changed ✅</string>
+
+    <!-- Notes -->
+    <string name="screen_notes">💭 Notes</string>
+    <string name="note_deleted">Note cleared</string>
+    <string name="notes_empty">No notes here yet
+
+(╯°□°）╯︵ ┻━┻</string>
+
+    <!-- Months -->
+    <string name="month1">January</string>
+    <string name="month2">February</string>
+    <string name="month3">March</string>
+    <string name="month4">April</string>
+    <string name="month5">May</string>
+    <string name="month6">June</string>
+    <string name="month7">July</string>
+    <string name="month8">August</string>
+    <string name="month9">September</string>
+    <string name="month10">October</string>
+    <string name="month11">November</string>
+    <string name="month12">December</string>
+
+    <!-- Days -->
+    <string name="day1">MON</string>
+    <string name="day2">TUE</string>
+    <string name="day3">WED</string>
+    <string name="day4">THU</string>
+    <string name="day5">FRI</string>
+    <string name="day6">SAT</string>
+    <string name="day7">SUN</string>
+
+    <string name="report_header">📊 Report for %1$s %2$d</string>
+    <string name="report_footer">Generated in EmotionMe ❤️️</string>
 </resources>

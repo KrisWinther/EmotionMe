@@ -1,25 +1,123 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!--  ══════════════════════════════════════════════
+             BASE — общие настройки для всех тем
+        ══════════════════════════════════════════════  -->
     <style name="Base.Theme.EmotionMe" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorAccent">@color/lavender</item>
-        <item name="android:windowBackground">@color/black</item>
-        <item name="colorPrimary">@color/lavender</item>
-        <item name="colorSurface">#1E1E1E</item>
-        <item name="colorOnSurface">@color/white</item>
-        <item name="colorControlActivated">@color/lavender</item>
-        <item name="colorControlNormal">@color/black</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="colorControlNormal">@color/black</item>
+    </style>
+    <!--  ══════════════════════════════════════════════
+             BLUE (по умолчанию)
+        ══════════════════════════════════════════════  -->
+    <style name="Theme.EmotionMe.Blue" parent="Base.Theme.EmotionMe">
+        <item name="themeAccentColor">@color/blue_primary</item>
+        <item name="themeBackgroundColor">@color/blue_background</item>
+        <item name="colorPrimary">@color/blue_primary</item>
+        <item name="colorAccent">@color/blue_primary</item>
+        <item name="colorControlActivated">@color/blue_primary</item>
+        <item name="colorSurface">#1E1E1E</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <!--  ══════════════════════════════════════════════
+             PURPLE
+        ══════════════════════════════════════════════  -->
+    <style name="Theme.EmotionMe.Purple" parent="Base.Theme.EmotionMe">
+        <item name="themeAccentColor">@color/purple_primary</item>
+        <item name="themeBackgroundColor">@color/purple_background</item>
+        <item name="colorPrimary">@color/purple_primary</item>
+        <item name="colorAccent">@color/purple_primary</item>
+        <item name="colorControlActivated">@color/purple_primary</item>
+        <item name="colorSurface">#2A1F3D</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <!--  ══════════════════════════════════════════════
+             ORANGE
+        ══════════════════════════════════════════════  -->
+    <style name="Theme.EmotionMe.Orange" parent="Base.Theme.EmotionMe">
+        <item name="themeAccentColor">@color/orange_primary</item>
+        <item name="themeBackgroundColor">@color/orange_background</item>
+        <item name="colorPrimary">@color/orange_primary</item>
+        <item name="colorAccent">@color/orange_primary</item>
+        <item name="colorControlActivated">@color/orange_primary</item>
+        <item name="colorSurface">#3D2000</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <!--  ══════════════════════════════════════════════
+             GREEN
+        ══════════════════════════════════════════════  -->
+    <style name="Theme.EmotionMe.Green" parent="Base.Theme.EmotionMe">
+        <item name="themeAccentColor">@color/green_primary</item>
+        <item name="themeBackgroundColor">@color/green_background</item>
+        <item name="colorPrimary">@color/green_primary</item>
+        <item name="colorAccent">@color/green_primary</item>
+        <item name="colorControlActivated">@color/green_primary</item>
+        <item name="colorSurface">#1A3D28</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <!--  ══════════════════════════════════════════════
+             MONO (чёрно-белая)
+        ══════════════════════════════════════════════  -->
+    <style name="Theme.EmotionMe.Mono" parent="Base.Theme.EmotionMe">
+        <item name="themeAccentColor">@color/mono_primary</item>
+        <item name="themeBackgroundColor">@color/grey</item>
+        <item name="colorPrimary">@color/mono_primary</item>
+        <item name="colorAccent">@color/mono_primary</item>
+        <item name="colorControlActivated">@color/mono_primary</item>
+        <item name="colorSurface">#1A1A1A</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="Theme.EmotionMe.Red" parent="Base.Theme.EmotionMe">
+        <item name="themeAccentColor">@color/red_primary</item>
+        <item name="themeBackgroundColor">@color/red_background</item>
+        <item name="colorPrimary">@color/red_primary</item>
+        <item name="colorAccent">@color/red_primary</item>
+        <item name="colorControlActivated">@color/red_primary</item>
+        <item name="colorSurface">#1E1E1E</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
+    <style name="Theme.EmotionMe.Pink" parent="Base.Theme.EmotionMe">
+        <item name="themeAccentColor">@color/pink_primary</item>
+        <item name="themeBackgroundColor">@color/pink_background</item>
+        <item name="colorPrimary">@color/pink_primary</item>
+        <item name="colorAccent">@color/pink_primary</item>
+        <item name="colorControlActivated">@color/pink_primary</item>
+        <item name="colorSurface">#1E1E1E</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Theme.EmotionMe.Yellow" parent="Base.Theme.EmotionMe">
+        <item name="themeAccentColor">@color/yellow_primary</item>
+        <item name="themeBackgroundColor">@color/yellow_background</item>
+        <item name="colorPrimary">@color/yellow_primary</item>
+        <item name="colorAccent">@color/yellow_primary</item>
+        <item name="colorControlActivated">@color/yellow_primary</item>
+        <item name="colorSurface">#1E1E1E</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <!--  ══════════════════════════════════════════════
+             Алиас — по умолчанию синяя тема
+             (AndroidManifest ссылается на Theme.EmotionMe)
+        ══════════════════════════════════════════════  -->
+    <style name="Theme.EmotionMe" parent="Theme.EmotionMe.Blue"/>
+    <!--  ══════════════════════════════════════════════
+             TimePicker (общий для всех тем)
+        ══════════════════════════════════════════════  -->
     <style name="TimePickerTheme">
-
         <item name="colorControlActivated">@color/black</item>
-        <item name="android:textColorPrimary">@color/lavender</item>
+        <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/black</item>
         <item name="colorAccent">@color/white</item>
     </style>
-
-    <style name="Theme.EmotionMe" parent="Base.Theme.EmotionMe" />
 </resources>

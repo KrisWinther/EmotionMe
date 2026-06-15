@@ -1,0 +1,576 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Анимированный фон -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/themeBackgroundColor">
+
+        <View
+            android:id="@+id/spot1"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="top|end"
+            android:background="@drawable/oval_blue_gradient" />
+
+        <View
+            android:id="@+id/spot2"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:background="@drawable/oval_orange_gradient" />
+
+        <View
+            android:id="@+id/spot3"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="bottom|start"
+            android:background="@drawable/oval_violet_gradient" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="25dp"
+            android:paddingTop="60dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="30dp">
+
+            <!-- Иконка приложения -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/icon_bg"
+                android:backgroundTint="@color/white">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="15dp"
+                    android:background="@mipmap/emotionme_v11" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="EmotionMe"
+                android:textColor="@color/black"
+                android:textSize="45sp"
+                android:textStyle="bold" />
+
+            <!-- ═══════════════════════════════════
+                         ШАГ 0: Имя
+                    ═══════════════════════════════════ -->
+            <LinearLayout
+                android:id="@+id/stepName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/field_light"
+                    android:backgroundTint="@color/white"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/onboarding_hello_title"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/onboarding_hello_subtitle"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/field_light"
+                    android:hint="@string/onboarding_name_hint"
+                    android:inputType="text"
+                    android:padding="20dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:textCursorDrawable="@drawable/cursor_color" />
+
+                <!-- Точки прогресса — шаг 0 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/dot0"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/icon_bg"
+                        android:backgroundTint="?attr/themeAccentColor" />
+
+                    <View
+                        android:id="@+id/dot1"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="4dp"
+                        android:alpha="0.3"
+                        android:background="@drawable/icon_bg"
+                        android:backgroundTint="@color/black" />
+
+                    <View
+                        android:id="@+id/dot2"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="4dp"
+                        android:alpha="0.3"
+                        android:background="@drawable/icon_bg"
+                        android:backgroundTint="@color/black" />
+
+                    <View
+                        android:id="@+id/dot3"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_margin="4dp"
+                        android:alpha="0.3"
+                        android:background="@drawable/icon_bg"
+                        android:backgroundTint="@color/black" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNextName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:text="@string/btn_next"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:cornerRadius="15dp" />
+            </LinearLayout>
+
+            <!-- ═══════════════════════════════════
+                         ШАГ 1: Симптомы
+                    ═══════════════════════════════════ -->
+            <LinearLayout
+                android:id="@+id/stepSymptoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/field_light"
+                    android:backgroundTint="@color/white"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/onboarding_symptoms_title"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/onboarding_symptoms_subtitle"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/field_light"
+                    android:backgroundTint="@color/white"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/symptomsContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </FrameLayout>
+
+                <!-- Точки + кнопка назад — шаг 1 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btnBack1"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/icon_bg"
+                        android:backgroundTint="@color/black"
+                        android:contentDescription="@string/btn_next"
+                        android:padding="10dp"
+                        android:src="@drawable/outline_arrow_back_ios_new_24" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="@color/black" />
+
+                        <View
+                            android:id="@+id/sdot1"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="?attr/themeAccentColor" />
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="@color/black" />
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="@color/black" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="36dp"
+                        android:layout_height="36dp" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNextSymptoms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:text="@string/btn_next"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:cornerRadius="15dp" />
+            </LinearLayout>
+
+            <!-- ═══════════════════════════════════
+                         ШАГ 2: Цель
+                    ═══════════════════════════════════ -->
+            <LinearLayout
+                android:id="@+id/stepGoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/field_light"
+                    android:backgroundTint="@color/white"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/onboarding_goal_title"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/onboarding_goal_subtitle"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/field_light"
+                    android:backgroundTint="@color/white"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/goalsContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </FrameLayout>
+
+                <!-- Точки + кнопка назад — шаг 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btnBack2"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/icon_bg"
+                        android:backgroundTint="@color/black"
+                        android:contentDescription="@string/btn_next"
+                        android:padding="8dp"
+                        android:src="@drawable/outline_arrow_back_ios_new_24" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="@color/black" />
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="@color/black" />
+
+                        <View
+                            android:id="@+id/gdot2"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="?attr/themeAccentColor" />
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="@color/black" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="36dp"
+                        android:layout_height="36dp" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNextGoal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/black"
+                    android:text="@string/btn_next"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:cornerRadius="15dp" />
+            </LinearLayout>
+
+            <!-- ═══════════════════════════════════
+                         ШАГ 3: Частота
+                    ═══════════════════════════════════ -->
+            <LinearLayout
+                android:id="@+id/stepFrequency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/field_light"
+                    android:backgroundTint="@color/white"
+                    android:padding="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/onboarding_frequency_title"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/onboarding_frequency_subtitle"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/field_light"
+                    android:backgroundTint="@color/white"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/frequencyContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </FrameLayout>
+
+                <!-- Точки + кнопка назад — шаг 3 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/btnBack3"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@drawable/icon_bg"
+                        android:backgroundTint="@color/black"
+                        android:contentDescription="@string/btn_next"
+                        android:padding="8dp"
+                        android:src="@drawable/outline_arrow_back_ios_new_24" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="@color/black" />
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="@color/black" />
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:alpha="0.3"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="@color/black" />
+
+                        <View
+                            android:id="@+id/fdot3"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_margin="4dp"
+                            android:background="@drawable/icon_bg"
+                            android:backgroundTint="?attr/themeAccentColor" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="36dp"
+                        android:layout_height="36dp" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnFinish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/themeAccentColor"
+                    android:text="@string/btn_finish"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:cornerRadius="15dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

@@ -23,7 +23,8 @@ class PasswordActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        ThemeManager.applyTheme(this)
+        LanguageManager.applyLanguage(this)
         enableEdgeToEdge()
 
         setContentView(R.layout.activity_password)
@@ -49,7 +50,7 @@ class PasswordActivity : AppCompatActivity() {
                 doubleClick = currentTime
                 Snackbar.make(
                     btnSave,
-                    "Нажми ещё раз, чтобы подтвердить изменение пароля",
+                    getString(R.string.hint_confirm_password),
                     Snackbar.LENGTH_SHORT
                 )
                     .setDuration(2000)
@@ -71,19 +72,29 @@ class PasswordActivity : AppCompatActivity() {
         val root = btnSave.rootView
 
         if (newPass.isEmpty() || confirmPass.isEmpty()) {
-            Snackbar.make(root, "Заполните все поля", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(
+                root,
+                getString(R.string.error_fill_fields),
+                Snackbar.LENGTH_SHORT
+            )
+                .show()
             return
         }
 
         if (newPass != confirmPass) {
-            Snackbar.make(root, "Пароли не совпадают", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(
+                root,
+                getString(R.string.error_passwords_not_match),
+                Snackbar.LENGTH_SHORT
+            )
+                .show()
             return
         }
 
         if (newPass.length < 5) {
             Snackbar.make(
                 root,
-                "Пароль должен содержать не менее 5 символов",
+                getString(R.string.error_password_not_enough_chars),
                 Snackbar.LENGTH_SHORT
             ).show()
             return
@@ -97,20 +108,48 @@ class PasswordActivity : AppCompatActivity() {
                 return@Thread
             }
 
-            if (newPass == user.password) {
+            // Проверяем, что новый пароль не совпадает с текущим
+            val isSamePassword = if (user.salt.isBlank()) {
+                newPass == user.password   // старый аккаунт без соли
+            } else {
+                PasswordHasher.verify(
+                    newPass,
+                    user.salt,
+                    user.password
+                )
+            }
+
+            if (isSamePassword) {
                 runOnUiThread {
                     Snackbar.make(
                         root,
-                        "Новый пароль должен отличаться",
+                        getString(R.string.error_passwords_not_match),
                         Snackbar.LENGTH_SHORT
-                    ).show()
+                    )
+                        .show()
                 }
                 return@Thread
             }
 
-            db.userDao().updatePassword(userId, newPass)
+            // Генерируем новую соль и хэш
+            val newSalt = PasswordHasher.generateSalt()
+            val newHash = PasswordHasher.hash(
+                newPass,
+                newSalt
+            )
+            db.userDao().updatePassword(
+                userId,
+                newHash,
+                newSalt
+            )
+
             runOnUiThread {
-                Toast.makeText(this, "Пароль успешно изменён ✅", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.password_changed),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
                 finish()
                 overridePendingTransition(
                     R.anim.slide_out_left,
@@ -121,14 +160,22 @@ class PasswordActivity : AppCompatActivity() {
     }
 
     fun startFloatingAnimation(view: View, duration: Long) {
-        val animX = ObjectAnimator.ofFloat(view, "translationX", -150f, 150f).apply {
+        val animX = ObjectAnimator.ofFloat(
+            view,
+            "translationX",
+            -150f, 150f
+        ).apply {
             this.duration = duration
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
             interpolator = AccelerateDecelerateInterpolator()
         }
 
-        val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
+        val animY = ObjectAnimator.ofFloat(
+            view,
+            "translationY",
+            -150f, 150f
+        ).apply {
             this.duration = duration + 800 // Разная скорость для естественности
             repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE
@@ -136,7 +183,10 @@ class PasswordActivity : AppCompatActivity() {
         }
 
         AnimatorSet().apply {
-            playTogether(animX, animY)
+            playTogether(
+                animX,
+                animY
+            )
             start()
         }
     }

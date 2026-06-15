@@ -60,14 +60,14 @@ object NotificationScheduler {
         am.cancel(pi)
     }
 
-    fun rescheduleFromSettings(context: Context){
+    fun rescheduleFromSettings(context: Context) {
         val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
         val enabled = prefs.getBoolean("notify_enabled", false)
         val hour = prefs.getInt("notify_hour", 20)
 
         cancelAll(context)
 
-        if (enabled){
+        if (enabled) {
             scheduleDaily(context, hour)
         }
     }

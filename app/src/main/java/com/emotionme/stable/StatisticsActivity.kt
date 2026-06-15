@@ -5,14 +5,11 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -20,7 +17,6 @@ import java.util.Calendar
 
 class StatisticsActivity : AppCompatActivity() {
 
-    // Текущие данные — нужны для передачи в экспортер
     private var currentMoodStats: List<StatItem> = emptyList()
     private var currentLocationStats: List<StatItem> = emptyList()
     private var currentWeatherStats: List<StatItem> = emptyList()
@@ -31,6 +27,9 @@ class StatisticsActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        LanguageManager.applyLanguage(this)
+        ThemeManager.applyTheme(this)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_statistics)
 
         val db = AppDatabase.getInstance(this)
@@ -49,57 +48,48 @@ class StatisticsActivity : AppCompatActivity() {
         val tvPlace = findViewById<TextView>(R.id.locationTV)
         val tvWeather = findViewById<TextView>(R.id.weatherTV)
         val tvCalendar = findViewById<TextView>(R.id.calendarTV)
-        val spot1 = findViewById<View>(R.id.spot1)
-        val spot2 = findViewById<View>(R.id.spot2)
-        val spot3 = findViewById<View>(R.id.spot3)
 
-        startFloatingAnimation(spot1, 5000)
-        startFloatingAnimation(spot2, 8000)
-        startFloatingAnimation(spot3, 10000)
+        startFloatingAnimation(findViewById(R.id.spot1), 5000)
+        startFloatingAnimation(findViewById(R.id.spot2), 8000)
+        startFloatingAnimation(findViewById(R.id.spot3), 10000)
 
         tvMood.setOnClickListener {
             Snackbar.make(
                 tvMood,
-                "Здесь отображается настроение, которое ты отметил(-а) \uD83D\uDE0D",
+                getString(R.string.info5),
                 Snackbar.LENGTH_SHORT
             ).show()
         }
-
         tvPlace.setOnClickListener {
             Snackbar.make(
                 tvPlace,
-                "Здесь отображаются места, где ты чаще всего бывал(-а) в этом месяце \uD83C\uDFDE\uFE0F",
+                getString(R.string.info4),
                 Snackbar.LENGTH_SHORT
             ).show()
         }
-
         tvWeather.setOnClickListener {
             Snackbar.make(
                 tvWeather,
-                "Здесь отображается погода, которую ты чаще всего наблюдал(-а) в этом месяце ☀\uFE0F",
+                getString(R.string.info5),
                 Snackbar.LENGTH_SHORT
             ).show()
         }
-
         tvCalendar.setOnClickListener {
             Snackbar.make(
                 tvCalendar,
-                "Это календарь настроения, каждый месяц на нём появляется уникальный рисунок! \uD83D\uDCC5",
+                getString(R.string.info6),
                 Snackbar.LENGTH_SHORT
             ).show()
         }
 
-        val monthNames = listOf(
-            "Январь", "Февраль", "Март", "Апрель",
-            "Май", "Июнь", "Июль", "Август",
-            "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
-        )
+        val monthNames =
+            (1..12).map { getString(resources.getIdentifier("month$it", "string", packageName)) }
 
         val now = Calendar.getInstance()
         currentYear = now.get(Calendar.YEAR)
         currentMonth = now.get(Calendar.MONTH)
 
-        val years = (2026..currentYear).map { it.toString() }
+        val years = (currentYear downTo 2024).map { it.toString() }
 
         val monthAdapter = ArrayAdapter(this, R.layout.item_spinner, monthNames)
         monthAdapter.setDropDownViewResource(R.layout.item_spinner)
@@ -133,18 +123,20 @@ class StatisticsActivity : AppCompatActivity() {
                 val weatherStats = dao.getWeatherStatsRange(userId, from, to)
                 val entries = dao.getEntriesRange(userId, from, to)
 
+                // Доминирующее настроение по дням — теперь берём moodKey
                 val dominantByDay: Map<Int, String> = entries
                     .groupBy { entry ->
-                        Calendar.getInstance().apply {
-                            timeInMillis = entry.timestamp
-                        }.get(Calendar.DAY_OF_MONTH)
+                        Calendar.getInstance()
+                            .apply { timeInMillis = entry.timestamp }
+                            .get(Calendar.DAY_OF_MONTH)
                     }
                     .mapValues { (_, dayEntries) ->
-                        dayEntries.groupingBy { it.mood }.eachCount()
+                        dayEntries
+                            .groupingBy { it.moodKey }
+                            .eachCount()
                             .maxByOrNull { it.value }?.key ?: ""
                     }
 
-                // Сохраняем для экспорта
                 currentMoodStats = moodStats
                 currentLocationStats = locationStats
                 currentWeatherStats = weatherStats
@@ -160,25 +152,21 @@ class StatisticsActivity : AppCompatActivity() {
         }
 
         val spinnerListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) =
                 load()
-            }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
-
         spinnerMonth.onItemSelectedListener = spinnerListener
         spinnerYear.onItemSelectedListener = spinnerListener
 
-        // Экспорт в PNG
         btnExport.setOnClickListener {
             btnExport.isEnabled = false
-            btnExport.text = "Генерация..."
+            btnExport.text = getString(R.string.generating)
 
             Thread {
-                // Получаем имя пользователя
                 val user = db.userDao().getById(userId)
-                val userName = user?.login ?: "Пользователь"
+                val userName = user?.login ?: getString(R.string.username_default)
 
                 val fileName = ReportExporter.export(
                     context = this,
@@ -193,20 +181,18 @@ class StatisticsActivity : AppCompatActivity() {
 
                 runOnUiThread {
                     btnExport.isEnabled = true
-                    btnExport.text = "\uD83D\uDCF8 Сохранить отчёт"
+                    btnExport.text = getString(R.string.save_data)
 
                     if (fileName != null) {
                         Snackbar.make(
                             btnExport,
-                            "Готово: $fileName",
+                            "${getString(R.string.finished)}: $fileName",
                             Snackbar.LENGTH_LONG
-                        ).setAction("Поделиться") {
-                            shareImage(fileName)
-                        }.show()
+                        ).setAction(getString(R.string.share)) { shareImage(fileName) }.show()
                     } else {
                         Snackbar.make(
                             btnExport,
-                            "Ошибка при сохранении 😞",
+                            getString(R.string.error_saving_data),
                             Snackbar.LENGTH_SHORT
                         ).show()
                     }
@@ -218,12 +204,6 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     private fun shareImage(fileName: String) {
-        val uri: Uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            .buildUpon()
-            .appendPath(fileName)
-            .build()
-
-        // Ищем файл через MediaStore и делимся им
         val cursor = contentResolver.query(
             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             arrayOf(android.provider.MediaStore.Images.Media._ID),
@@ -242,29 +222,20 @@ class StatisticsActivity : AppCompatActivity() {
                     putExtra(Intent.EXTRA_STREAM, shareUri)
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
-                startActivity(Intent.createChooser(intent, "Поделиться отчётом"))
+                startActivity(Intent.createChooser(intent, getString(R.string.share_data)))
             }
         }
     }
 
     fun startFloatingAnimation(view: View, duration: Long) {
         val animX = ObjectAnimator.ofFloat(view, "translationX", -150f, 150f).apply {
-            this.duration = duration
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.REVERSE
-            interpolator = AccelerateDecelerateInterpolator()
+            this.duration = duration; repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE; interpolator = AccelerateDecelerateInterpolator()
         }
-
         val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
-            this.duration = duration + 800 // Разная скорость для естественности
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.REVERSE
-            interpolator = AccelerateDecelerateInterpolator()
+            this.duration = duration + 800; repeatCount = ValueAnimator.INFINITE
+            repeatMode = ValueAnimator.REVERSE; interpolator = AccelerateDecelerateInterpolator()
         }
-
-        AnimatorSet().apply {
-            playTogether(animX, animY)
-            start()
-        }
+        AnimatorSet().apply { playTogether(animX, animY); start() }
     }
 }

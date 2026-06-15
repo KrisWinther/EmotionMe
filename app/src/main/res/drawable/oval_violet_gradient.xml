@@ -9,6 +9,6 @@
         android:centerY="0.5"
         android:endColor="#006A5AE0"
         android:gradientRadius="140dp"
-        android:startColor="#856A5AE0"
+        android:startColor="#706A5AE0"
         android:type="radial" />
 </shape>

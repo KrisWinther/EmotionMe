@@ -11,18 +11,12 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
-import android.widget.TimePicker
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.snackbar.Snackbar
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsStartActivity : AppCompatActivity() {
 
-    private var doubleClick: Long = 0
     private var selectedTheme: String = ThemeManager.THEME_BLUE
     private var selectedLang: String = LanguageManager.LANG_RUSSIAN
 
@@ -32,9 +26,7 @@ class SettingsActivity : AppCompatActivity() {
         ThemeManager.applyTheme(this)
         LanguageManager.applyLanguage(this)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_settings)
-
-        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+        setContentView(R.layout.activity_settings_auth)
 
         // Анимация фона
         startFloatingAnimation(findViewById(R.id.spot1), 5000)
@@ -47,43 +39,6 @@ class SettingsActivity : AppCompatActivity() {
         // Кнопка назад
         findViewById<TextView>(R.id.btnBack).setOnClickListener { finish() }
 
-        // Уведомления
-        val switchNotify = findViewById<MaterialSwitch>(R.id.notification_switcher)
-        val timePicker = findViewById<TimePicker>(R.id.time_picker)
-        val enabled = prefs.getBoolean("notify_enabled", true)
-        val hour = prefs.getInt("notify_hour", 12)
-        val minute = prefs.getInt("notify_minute", 0)
-
-        switchNotify.text = getString(R.string.notifications)
-        switchNotify.isChecked = enabled
-        timePicker.hour = hour
-        timePicker.minute = minute
-        timePicker.isEnabled = enabled
-        timePicker.alpha = if (enabled) 1f else 0.5f
-        timePicker.setIs24HourView(true)
-
-        switchNotify.setOnCheckedChangeListener { _, isChecked ->
-            Snackbar.make(
-                switchNotify,
-                if (isChecked) getString(R.string.notification_on)
-                else getString(R.string.notification_off),
-                Snackbar.LENGTH_SHORT
-            ).show()
-            prefs.edit { putBoolean("notify_enabled", isChecked) }
-            timePicker.isEnabled = isChecked
-            timePicker.alpha = if (isChecked) 1f else 0.5f
-            if (isChecked) NotificationScheduler.scheduleDaily(this, timePicker.hour)
-            else NotificationScheduler.cancelAll(this)
-        }
-
-        timePicker.setOnTimeChangedListener { _, h, m ->
-            prefs.edit { putInt("notify_hour", h); putInt("notify_minute", m) }
-            if (switchNotify.isChecked) NotificationScheduler.scheduleDaily(this, h)
-            if (prefs.getBoolean("notify_enabled", false))
-                NotificationScheduler.scheduleDaily(this, prefs.getInt("notify_hour", 12))
-        }
-
-        // Цветовая тема
         selectedTheme = ThemeManager.getSavedTheme(this)
         val themeGroup = findViewById<RadioGroup>(R.id.themeRadioGroup)
         themeGroup.removeAllViews()
@@ -91,9 +46,9 @@ class SettingsActivity : AppCompatActivity() {
         ThemeManager.allThemes.forEach { themeKey ->
             val rb = RadioButton(this).apply {
                 id = themeKey.hashCode()
-                text = ThemeManager.displayName(this@SettingsActivity, themeKey)
+                text = ThemeManager.displayName(this@SettingsStartActivity, themeKey)
                 textSize = 15f
-                setTextColor(android.graphics.Color.BLACK)
+                setTextColor(R.color.black)
                 setPadding(8, 16, 8, 16)
             }
             themeGroup.addView(rb)
@@ -125,7 +80,7 @@ class SettingsActivity : AppCompatActivity() {
                 id = langKey.hashCode()
                 text = LanguageManager.displayName(langKey)
                 textSize = 15f
-                setTextColor(android.graphics.Color.BLACK)
+                setTextColor(R.color.black)
                 setPadding(8, 16, 8, 16)
             }
             langGroup.addView(rb)
@@ -146,40 +101,6 @@ class SettingsActivity : AppCompatActivity() {
                     }.show()
             }
         }
-
-        // Кнопка «Мои ответы»
-        findViewById<MaterialButton>(R.id.btnAnswers).setOnClickListener {
-            startActivity(Intent(this, AnswersActivity::class.java))
-        }
-
-        // Кнопка «Изменить пароль»
-        findViewById<MaterialButton>(R.id.btnPasswordActivity).setOnClickListener {
-            startActivity(Intent(this, PasswordActivity::class.java))
-        }
-
-        // Выйти из аккаунта
-        val btnLogout = findViewById<MaterialButton>(R.id.btnLogout)
-        btnLogout.setOnClickListener {
-            val now = System.currentTimeMillis()
-            if (now - doubleClick < 2000) {
-                SessionManager.logout(this)
-                startActivity(Intent(this, AuthActivity::class.java))
-                finishAffinity()
-                Toast.makeText(this, getString(R.string.btn_logout_action), Toast.LENGTH_SHORT)
-                    .show()
-                doubleClick = 0
-            } else {
-                doubleClick = now
-                Snackbar.make(
-                    btnLogout,
-                    getString(R.string.btn_logout_confirm),
-                    Snackbar.LENGTH_SHORT
-                )
-                    .setDuration(2000).show()
-            }
-        }
-
-        // Версия
         val infoTV = findViewById<TextView>(R.id.versionTV)
         infoTV.text = getString(R.string.app_version)
         infoTV.setOnClickListener {
