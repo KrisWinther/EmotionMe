@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         val btnSave = findViewById<MaterialButton>(R.id.btnSave)
         val btnStats = findViewById<MaterialButton>(R.id.btnStats)
         val btnNotes = findViewById<MaterialButton>(R.id.btnNotes)
-        val btnSettings = findViewById<TextView>(R.id.btnSettings)
+        val btnSettings = findViewById<ImageView>(R.id.btnSettings)
         val showMotivation = findViewById<TextView>(R.id.showMotivation)
         val scrollView = findViewById<ScrollView>(R.id.scroll)
         val mainTV = findViewById<TextView>(R.id.mainTV)
@@ -142,14 +142,13 @@ class MainActivity : AppCompatActivity() {
             val message = when {
                 tired > bad && tired > good -> listOf(
                     getString(R.string.motiv_tired_1),
-                    "${getString(R.string.motiv_bad_2)}, $displayName",
                     getString(R.string.motiv_tired_3),
-                    "${getString(R.string.motiv_tired_4)}, $displayName"
+                    "${getString(R.string.motiv_tired_4)}, $displayName!"
                 ).random()
 
                 bad > good -> listOf(
                     "${getString(R.string.motiv_bad_1)}, $displayName",
-                    getString(R.string.motiv_bad_2),
+                    "${getString(R.string.motiv_bad_2)}, $displayName",
                     "${getString(R.string.motiv_bad_3)}, $displayName",
                     getString(R.string.motiv_bad_4)
                 ).random()
@@ -295,6 +294,9 @@ class MainActivity : AppCompatActivity() {
             repeatMode = ValueAnimator.REVERSE
             interpolator = AccelerateDecelerateInterpolator()
         }
-        AnimatorSet().apply { playTogether(animX, animY); start() }
+        AnimatorSet().apply {
+            playTogether(animX, animY)
+            start()
+        }
     }
 }

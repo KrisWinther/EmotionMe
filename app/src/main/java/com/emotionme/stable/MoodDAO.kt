@@ -14,6 +14,9 @@ interface MoodDAO {
     @Query("UPDATE mood_entries SET note = '' WHERE id = :entryId")
     fun clearNote(entryId: Int)
 
+    @Query("DELETE FROM mood_entries WHERE id = :id")
+    fun deleteById(id: Int)
+
     // Статистика по KEY-полям (основные — для графиков)
 
     @Query("""

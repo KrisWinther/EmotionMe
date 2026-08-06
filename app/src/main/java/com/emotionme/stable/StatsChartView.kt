@@ -92,11 +92,34 @@ class StatsChartView @JvmOverloads constructor(
         for (i in 0..steps) {
             val v = i * stepVal
             val y = padT + chartH - (v.toFloat() / topVal) * chartH
-            canvas.drawLine(padL, y, padL + chartW, y, gridPaint)
-            canvas.drawText(v.toString(), padL - 6 * dp, y + 4 * dp, scalePaint)
+            canvas.drawLine(
+                padL,
+                y,
+                padL + chartW,
+                y,
+                gridPaint
+            )
+            canvas.drawText(
+                v.toString(),
+                padL - 6 * dp,
+                y + 4 * dp,
+                scalePaint
+            )
         }
-        canvas.drawLine(padL, padT + chartH, padL + chartW, padT + chartH, axisPaint)
-        canvas.drawLine(padL, padT, padL, padT + chartH, axisPaint)
+        canvas.drawLine(
+            padL,
+            padT + chartH,
+            padL + chartW,
+            padT + chartH,
+            axisPaint
+        )
+        canvas.drawLine(
+            padL,
+            padT,
+            padL,
+            padT + chartH,
+            axisPaint
+        )
 
         val barSlot = chartW / data.size
         val barW = barSlot * 0.55f
@@ -118,7 +141,10 @@ class StatsChartView @JvmOverloads constructor(
 
             // Столбец — цвет по ключу
             barPaint.color = MoodKeys.colorForKey(item.label)
-            canvas.drawRoundRect(RectF(left, top, right, bottom), radius, radius, barPaint)
+            canvas.drawRoundRect(RectF(left, top, right, bottom),
+                radius,
+                radius, barPaint
+            )
 
             // Значение
             if (barH > 28 * dp) {

@@ -83,19 +83,34 @@ class StatisticsActivity : AppCompatActivity() {
         }
 
         val monthNames =
-            (1..12).map { getString(resources.getIdentifier("month$it", "string", packageName)) }
+            (1..12).map {
+                getString(
+                    resources.getIdentifier(
+                        "month$it",
+                        "string",
+                        packageName)
+                )
+            }
 
         val now = Calendar.getInstance()
         currentYear = now.get(Calendar.YEAR)
         currentMonth = now.get(Calendar.MONTH)
 
-        val years = (currentYear downTo 2024).map { it.toString() }
+        val years = (currentYear..2026).map { it.toString() }
 
-        val monthAdapter = ArrayAdapter(this, R.layout.item_spinner, monthNames)
+        val monthAdapter = ArrayAdapter(
+            this,
+            R.layout.item_spinner,
+            monthNames
+        )
         monthAdapter.setDropDownViewResource(R.layout.item_spinner)
         spinnerMonth.adapter = monthAdapter
 
-        val yearAdapter = ArrayAdapter(this, R.layout.item_spinner, years)
+        val yearAdapter = ArrayAdapter(
+            this,
+            R.layout.item_spinner,
+            years
+        )
         yearAdapter.setDropDownViewResource(R.layout.item_spinner)
         spinnerYear.adapter = yearAdapter
 
@@ -228,11 +243,21 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     fun startFloatingAnimation(view: View, duration: Long) {
-        val animX = ObjectAnimator.ofFloat(view, "translationX", -150f, 150f).apply {
+        val animX = ObjectAnimator.ofFloat(
+            view,
+            "translationX",
+            -150f, 150f
+        )
+            .apply {
             this.duration = duration; repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE; interpolator = AccelerateDecelerateInterpolator()
         }
-        val animY = ObjectAnimator.ofFloat(view, "translationY", -150f, 150f).apply {
+        val animY = ObjectAnimator.ofFloat(
+            view,
+            "translationY",
+            -150f, 150f
+        )
+            .apply {
             this.duration = duration + 800; repeatCount = ValueAnimator.INFINITE
             repeatMode = ValueAnimator.REVERSE; interpolator = AccelerateDecelerateInterpolator()
         }

@@ -4,7 +4,7 @@
 
     <!-- Auth -->
     <string name="welcome">👋 Добро пожаловать!</string>
-    <string name="hint_login">Имя пользователя</string>
+    <string name="hint_login">Email</string>
     <string name="hint_password">Пароль</string>
     <string name="btn_login">Войти 🔐</string>
     <string name="btn_register">Зарегистрироваться</string>
@@ -50,6 +50,9 @@
     <string name="btn_save_confirm">Нажми ещё раз, чтобы сохранить</string>
     <string name="saved">Запись сохранена ✅</string>
     <string name="hint_byn_group">Посмотреть записи</string>
+    <string name="section_mood">🎭 Настроение</string>
+    <string name="section_place">📍 Место</string>
+    <string name="section_weather">🌤 Погода</string>
 
     <!-- Moods -->
     <string name="mood_happy">🥰 Счастье</string>
@@ -133,8 +136,8 @@
     <string name="lang_changed">Язык изменён — перезапустите приложение</string>
 
     <!-- Version -->
-    <string name="app_version">Версия 1.6.1b (26.6.15beta)</string>
-    <string name="app_info">EmotionMe version 1.6.1 beta build June 15th, 2026 by KrisWinther</string>
+    <string name="app_version">EmotionMe v1.6.2b</string>
+    <string name="app_info">EmotionMe version 1.6.2 beta build June 21th, 2026 by KrisWinther</string>
 
     <!-- Themes -->
     <string name="theme_red">❤️ Красный</string>
@@ -218,9 +221,12 @@
     <!-- Notes -->
     <string name="screen_notes">💭 Заметки</string>
     <string name="note_deleted">Заметка очищена</string>
-    <string name="notes_empty">Заметок за этот период нет
-
-(╯°□°）╯︵ ┻━┻</string>
+    <string name="entry_delete_title">Удалить запись</string>
+    <string name="entry_delete_message">Запись будет удалена навсегда. Продолжить?</string>
+    <string name="btn_delete">Удалить</string>
+    <string name="btn_cancel">Отмена</string>
+    <string name="entry_deleted">Запись удалена</string>
+    <string name="notes_empty">Заметок за этот период нет\n\n(╯°□°）╯︵ ┻━┻</string>
 
     <!-- Months -->
     <string name="month1">Январь</string>

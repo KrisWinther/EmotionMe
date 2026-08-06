@@ -9,8 +9,10 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -49,6 +51,9 @@ class NotesActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(R.layout.item_spinner)
         spinner.adapter = adapter
 
+        // Текущий порог времени — нужен при перезагрузке после удаления
+        var currentFrom = 0L
+
         fun fromForPosition(pos: Int): Long {
             val cal = Calendar.getInstance().apply {
                 set(Calendar.HOUR_OF_DAY, 0)
@@ -66,6 +71,7 @@ class NotesActivity : AppCompatActivity() {
         }
 
         fun load(from: Long) {
+            currentFrom = from
             Thread {
                 val entries = db.moodDao().getAll(userId)
                     .filter { it.note.isNotBlank() && it.timestamp >= from }
@@ -93,6 +99,28 @@ class NotesActivity : AppCompatActivity() {
                             sdf.format(Date(entry.timestamp))
                         card.findViewById<TextView>(R.id.tvNoteMood).text = entry.mood
                         card.findViewById<TextView>(R.id.tvNoteText).text = entry.note
+
+                        // ── Кнопка удаления ──
+                        card.findViewById<ImageView>(R.id.btnDeleteNote).setOnClickListener {
+                            AlertDialog.Builder(this)
+                                .setTitle(R.string.entry_delete_title)
+                                .setMessage(R.string.entry_delete_message)
+                                .setNegativeButton(R.string.btn_cancel, null)
+                                .setPositiveButton(R.string.btn_delete) { _, _ ->
+                                    Thread {
+                                        db.moodDao().deleteById(entry.id)
+                                        runOnUiThread {
+                                            load(currentFrom)
+                                            Snackbar.make(
+                                                container,
+                                                getString(R.string.entry_deleted),
+                                                Snackbar.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }.start()
+                                }
+                                .show()
+                        }
                         container.addView(card)
                     }
                 }

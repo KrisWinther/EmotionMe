@@ -4,7 +4,7 @@
 
     <!-- Auth -->
     <string name="welcome">👋 Welcome!</string>
-    <string name="hint_login">Username</string>
+    <string name="hint_login">Email</string>
     <string name="hint_password">Password</string>
     <string name="btn_login">Sign in 🔐</string>
     <string name="btn_register">Register</string>
@@ -48,6 +48,9 @@
     <string name="btn_save_confirm">Click again to confirm saving</string>
     <string name="saved">Entry saved ✅</string>
     <string name="hint_byn_group">Check entries</string>
+    <string name="section_mood">🎭 Mood</string>
+    <string name="section_place">📍 Place</string>
+    <string name="section_weather">🌤 Weather</string>
 
     <!-- Moods -->
     <string name="mood_happy">🥰 Happiness</string>
@@ -97,7 +100,7 @@
     <string name="motiv_tired_1">Fatigue is temporary, and rest is sacred! 🛌</string>
     <string name="motiv_tired_2">Be sure to have a good rest </string>
     <string name="motiv_tired_3">If you feel tired, take a rest, don\'t burden yourself</string>
-    <string name="motiv_tired_4">Fatigue is an obstacle to good work, don\'t overdo it!</string>
+    <string name="motiv_tired_4">Fatigue is an obstacle to good work, don\'t overdo it</string>
 
     <!-- Statistics -->
     <string name="screen_stats">📊 Statistics</string>
@@ -131,8 +134,8 @@
     <string name="lang_changed">Language changed — please restart the app</string>
 
     <!-- Version -->
-    <string name="app_version">Version 1.6.1b (26.6.15beta)</string>
-    <string name="app_info">EmotionMe version 1.6.1 beta build June 15th, 2026 by KrisWinther</string>
+    <string name="app_version">EmotionMe v1.6.2b</string>
+    <string name="app_info">EmotionMe version 1.6.2 beta build June 21th, 2026 by KrisWinther</string>
 
     <!-- Themes -->
     <string name="theme_red">❤️ Red</string>
@@ -216,9 +219,12 @@
     <!-- Notes -->
     <string name="screen_notes">💭 Notes</string>
     <string name="note_deleted">Note cleared</string>
-    <string name="notes_empty">No notes here yet
-
-(╯°□°）╯︵ ┻━┻</string>
+    <string name="entry_delete_title">Delete entry</string>
+    <string name="entry_delete_message">This entry will be permanently deleted. Continue?</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="entry_deleted">Entry deleted</string>
+    <string name="notes_empty">No notes here yet\n\n(╯°□°）╯︵ ┻━┻</string>
 
     <!-- Months -->
     <string name="month1">January</string>
