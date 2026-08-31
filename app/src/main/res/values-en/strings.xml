@@ -21,6 +21,7 @@
     <string name="info4">It shows the places where you have been most often this month 🏞️</string>
     <string name="info5">It shows the weather you have seen most often this month ☀️</string>
     <string name="info6">This is a mood calendar, and a unique drawing appears on it every month! 📅</string>
+    <string name="info7">This is a trend line showing sentiment analysis based on your notes 🤖</string>
     <string name="generating">Creating a card…</string>
     <string name="finished">Done</string>
     <string name="username_default">Guest</string>
@@ -51,6 +52,7 @@
     <string name="section_mood">🎭 Mood</string>
     <string name="section_place">📍 Place</string>
     <string name="section_weather">🌤 Weather</string>
+    <string name="section_calendar">📅 Mood calendar</string>
 
     <!-- Moods -->
     <string name="mood_happy">🥰 Happiness</string>
@@ -134,8 +136,8 @@
     <string name="lang_changed">Language changed — please restart the app</string>
 
     <!-- Version -->
-    <string name="app_version">EmotionMe v1.6.2b</string>
-    <string name="app_info">EmotionMe version 1.6.2 beta build June 21th, 2026 by KrisWinther</string>
+    <string name="app_version">EmotionMe v1.7.0b</string>
+    <string name="app_info">EmotionMe version 1.7.0 beta build September 1st, 2026 by Toshiko.dev</string>
 
     <!-- Themes -->
     <string name="theme_red">❤️ Red</string>
@@ -251,4 +253,5 @@
 
     <string name="report_header">📊 Report for %1$s %2$d</string>
     <string name="report_footer">Generated in EmotionMe ❤️️</string>
+    <string name="text_analyzing">🤖 Analysis of the state by text</string>
 </resources>

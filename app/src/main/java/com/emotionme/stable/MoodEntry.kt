@@ -23,5 +23,14 @@ data class MoodEntry(
     // Значения из MoodKeys.MOOD_*, PLACE_*, WEATHER_*.
     val moodKey: String = "",
     val locationKey: String = "",
-    val weatherKey: String = ""
+    val weatherKey: String = "",
+
+    // Результаты офлайн-анализа текста заметки (добавлены в версии 6).
+    // Заполняются через TextAnalyzer.analyze(note) при сохранении записи.
+    // sentimentScore: -1.0 (очень негативно) .. +1.0 (очень позитивно)
+    val sentimentScore: Float = 0f,
+    // Ключевые слова через запятую, например "домашка,друзья,гулял"
+    val keywords: String = "",
+    // Одна из TextAnalyzer.CATEGORY_*
+    val eventCategory: String = TextAnalyzer.CATEGORY_OTHER
 )

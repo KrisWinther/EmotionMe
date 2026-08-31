@@ -48,18 +48,17 @@
         android:paddingBottom="10dp"
         tools:ignore="MissingConstraints">
 
-        <TextView
+        <ImageView
             android:id="@+id/btnSettingsStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
-            android:backgroundTint="@color/blue_primary"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginTop="30dp"
             android:gravity="center"
-            android:layout_marginTop="40dp"
-            android:textColor="@color/white"
-            app:drawableEndCompat="@drawable/baseline_settings_24"
-            app:drawableTint="?attr/themeAccentColor"
-            android:textSize="30sp"/>
+            android:padding="10dp"
+            android:src="@drawable/baseline_settings_24"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:drawableTint="?attr/themeAccentColor" />
 
         <FrameLayout
             android:layout_width="wrap_content"

@@ -23,6 +23,7 @@
     <string name="info4">Здесь отображаются места, где ты чаще всего бывал(-а) в этом месяце 🏞️</string>
     <string name="info5">Здесь отображается погода, которую ты чаще всего наблюдал(-а) в этом месяце ☀️</string>
     <string name="info6">Это календарь настроения, каждый месяц на нём появляется уникальный рисунок! 📅</string>
+    <string name="info7">Это линия тренда, отображающая анализ настроения по твоим заметкам 🤖</string>
     <string name="generating">Генерация…</string>
     <string name="finished">Готово</string>
     <string name="username_default">Гость</string>
@@ -53,6 +54,7 @@
     <string name="section_mood">🎭 Настроение</string>
     <string name="section_place">📍 Место</string>
     <string name="section_weather">🌤 Погода</string>
+    <string name="section_calendar">📅 Календарь настроения</string>
 
     <!-- Moods -->
     <string name="mood_happy">🥰 Счастье</string>
@@ -136,8 +138,8 @@
     <string name="lang_changed">Язык изменён — перезапустите приложение</string>
 
     <!-- Version -->
-    <string name="app_version">EmotionMe v1.6.2b</string>
-    <string name="app_info">EmotionMe version 1.6.2 beta build June 21th, 2026 by KrisWinther</string>
+    <string name="app_version">EmotionMe v1.7.0b</string>
+    <string name="app_info">EmotionMe version 1.7.0 beta build September 1st, 2026 by Toshiko.dev</string>
 
     <!-- Themes -->
     <string name="theme_red">❤️ Красный</string>
@@ -253,4 +255,5 @@
 
     <string name="report_header">📊 Отчёт за %1$s %2$d</string>
     <string name="report_footer">Сгенерировано в EmotionMe ❤️</string>
+    <string name="text_analyzing">🤖 Анализ состояния по тексту</string>
 </resources>

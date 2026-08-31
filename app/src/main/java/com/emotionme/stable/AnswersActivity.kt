@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -33,7 +34,7 @@ class AnswersActivity : AppCompatActivity() {
         startFloatingAnimation(findViewById(R.id.spot2), 8000)
         startFloatingAnimation(findViewById(R.id.spot3), 10000)
 
-        findViewById<TextView>(R.id.btnBack).setOnClickListener { finish() }
+        findViewById<ImageView>(R.id.btnBack).setOnClickListener { finish() }
 
         loadData()
 

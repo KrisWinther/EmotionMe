@@ -245,26 +245,69 @@ class MainActivity : AppCompatActivity() {
         val moodLabel = spinnerMood.selectedItem.toString()
         val placeLabel = spinnerPlace.selectedItem.toString()
         val weatherLabel = spinnerWeather.selectedItem.toString()
+        val noteText = etNote.text.toString()
+
+        // Офлайн-анализ текста заметки (см. TextAnalyzer.kt).
+        // Если заметка пустая, analyze() вернёт нейтральный результат по умолчанию.
+        val analysis = TextAnalyzer.analyze(noteText)
 
         val entry = MoodEntry(
             userId = userId,
             mood = moodLabel,     // локализованная строка (для отображения в Notes)
             location = placeLabel,
             weather = weatherLabel,
-            note = etNote.text.toString(),
+            note = noteText,
             timestamp = System.currentTimeMillis(),
             moodKey = moodKey,       // стабильный ключ (для статистики)
             locationKey = placeKey,
-            weatherKey = weatherKey
+            weatherKey = weatherKey,
+            sentimentScore = analysis.sentimentScore,
+            keywords = analysis.keywords.joinToString(","),
+            eventCategory = analysis.eventCategory
         )
 
         Thread {
+            // Сравниваем с недавней историей ДО вставки текущей записи
+            val recentScores = db.moodDao().getRecentScores(userId, limit = 7)
+            val delta = TextAnalyzer.moodDelta(analysis.sentimentScore, recentScores)
+
             db.moodDao().insert(entry)
+
             runOnUiThread {
-                Snackbar.make(btnSave, R.string.saved, Snackbar.LENGTH_SHORT).show()
                 etNote.text.clear()
+                showAnalysisFeedback(btnSave, noteText, analysis, delta)
             }
         }.start()
+    }
+
+    /**
+     * Мгновенная обратная связь пользователю сразу после сохранения записи:
+     * что распознал офлайн-анализатор в тексте заметки.
+     * Показывается только если пользователь вообще написал текст —
+     * иначе анализировать нечего и Snackbar про сохранение достаточно.
+     */
+    private fun showAnalysisFeedback(
+        anchor: View,
+        noteText: String,
+        analysis: TextAnalyzer.TextAnalysisResult,
+        delta: Float?
+    ) {
+        if (noteText.isBlank()) {
+            Snackbar.make(anchor, R.string.saved, Snackbar.LENGTH_SHORT).show()
+            return
+        }
+
+        val categoryLabel = TextAnalyzer.categoryLabel(analysis.eventCategory)
+        val deltaText = when {
+            delta == null -> ""
+            delta > 0.1f -> " ↑ лучше, чем обычно"
+            delta < -0.1f -> " ↓ хуже, чем обычно"
+            else -> ""
+        }
+
+        val message = "Похоже на «$categoryLabel»$deltaText"
+
+        Snackbar.make(anchor, message, Snackbar.LENGTH_LONG).show()
     }
 
     private val notificationPermissionLauncher =

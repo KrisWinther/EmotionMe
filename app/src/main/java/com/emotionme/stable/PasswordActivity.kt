@@ -9,7 +9,7 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +30,7 @@ class PasswordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_password)
 
         val btnSave = findViewById<Button>(R.id.btnSavePassword)
-        val btnBack = findViewById<TextView>(R.id.btnBackPassword)
+        val btnBack = findViewById<ImageView>(R.id.btnBackPassword)
         val spot1 = findViewById<View>(R.id.spot1)
         val spot2 = findViewById<View>(R.id.spot2)
         val spot3 = findViewById<View>(R.id.spot3)

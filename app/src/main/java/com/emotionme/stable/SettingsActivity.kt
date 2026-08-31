@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -45,7 +46,9 @@ class SettingsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.settingsTitleTV).text = getString(R.string.screen_settings)
 
         // Кнопка назад
-        findViewById<TextView>(R.id.btnBack).setOnClickListener { finish() }
+        findViewById<ImageView>(R.id.btnBack).setOnClickListener {
+            finish()
+        }
 
         // Уведомления
         val switchNotify = findViewById<MaterialSwitch>(R.id.notification_switcher)

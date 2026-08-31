@@ -12,6 +12,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,7 +29,7 @@ class NotesActivity : AppCompatActivity() {
         val db = AppDatabase.getInstance(this)
         val userId = SessionManager.getUser(this)
         val container = findViewById<LinearLayout>(R.id.notesContainer)
-        val btnBack = findViewById<TextView>(R.id.btnBackNotes)
+        val btnBack = findViewById<ImageView>(R.id.btnBackNotes)
         val spinner = findViewById<Spinner>(R.id.spinnerNote)
         val spot1 = findViewById<View>(R.id.spot1)
         val spot2 = findViewById<View>(R.id.spot2)
@@ -99,6 +100,44 @@ class NotesActivity : AppCompatActivity() {
                             sdf.format(Date(entry.timestamp))
                         card.findViewById<TextView>(R.id.tvNoteMood).text = entry.mood
                         card.findViewById<TextView>(R.id.tvNoteText).text = entry.note
+
+                        // ── Компактный бейдж тональности (эмодзи + цвет фона) ──
+                        val tvSentiment = card.findViewById<TextView>(R.id.tvNoteSentiment)
+                        if (entry.note.isBlank()) {
+                            tvSentiment.visibility = View.GONE
+                        } else {
+                            val (emoji, bgColor) = when {
+                                entry.sentimentScore >= 0.25f -> "🙂" to "#3434C759".toColorInt()
+                                entry.sentimentScore > -0.25f -> "😐" to "#34FFB020".toColorInt()
+                                else -> "🙁" to "#34FF3B30".toColorInt()
+                            }
+                            tvSentiment.text = emoji
+                            // mutate() критически важен: без него background — это общий
+                            // ConstantState ресурса field_light, и setTint() красит ВСЕ View
+                            // в приложении, использующие этот drawable, а не только этот бейдж.
+                            tvSentiment.background = tvSentiment.background.mutate()
+                            tvSentiment.background.setTint(bgColor)
+                            tvSentiment.visibility = View.VISIBLE
+                        }
+
+                        // ── Результат офлайн-анализа: категория + ключевые слова ──
+                        val tvAnalysis = card.findViewById<TextView>(R.id.tvNoteAnalysis)
+                        val categoryLabel = TextAnalyzer.categoryLabel(entry.eventCategory)
+                        val keywordsList = entry.keywords
+                            .split(",")
+                            .map { it.trim() }
+                            .filter { it.isNotEmpty() }
+
+                        if (entry.eventCategory != TextAnalyzer.CATEGORY_OTHER || keywordsList.isNotEmpty()) {
+                            val parts = mutableListOf("📌 $categoryLabel")
+                            if (keywordsList.isNotEmpty()) {
+                                parts.add(keywordsList.joinToString(", "))
+                            }
+                            tvAnalysis.text = parts.joinToString("  •  ")
+                            tvAnalysis.visibility = View.VISIBLE
+                        } else {
+                            tvAnalysis.visibility = View.GONE
+                        }
 
                         // ── Кнопка удаления ──
                         card.findViewById<ImageView>(R.id.btnDeleteNote).setOnClickListener {

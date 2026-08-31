@@ -53,27 +53,27 @@
             android:layout_marginStart="17dp"
             android:text="@string/screen_stats"
             android:textColor="@color/white"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
-        <TextView
+        <ImageView
             android:id="@+id/btnBackCharts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
-            android:backgroundTint="@color/blue_primary"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:padding="10dp"
-            android:layout_marginEnd="12dp"
-            app:drawableTint="@color/white"
-            app:drawableEndCompat="@drawable/outline_arrow_back_ios_new_24"
-            android:textSize="30sp" />
+            android:src="@drawable/outline_arrow_back_ios_new_24"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:drawableTint="@color/white" />
     </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="77dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -132,7 +132,7 @@
                 android:background="@drawable/field_light"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/chart_mood"
+                android:text="@string/section_mood"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -141,6 +141,32 @@
                 android:id="@+id/moodChart"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/field_light"
+                android:padding="5dp"
+                android:textAlignment="center" />
+
+            <!-- Тренд настроения по офлайн-анализу текста заметок (TextAnalyzer.sentimentScore),
+                 в дополнение к ручному выбору mood из спиннера выше -->
+            <TextView
+                android:id="@+id/sentimentTrendTV"
+                android:layout_width="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/field_light"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/text_analyzing"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.emotionme.stable.SentimentLineChartView
+                android:id="@+id/sentimentTrendChart"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/field_light"
                 android:padding="5dp"
@@ -156,7 +182,7 @@
                 android:background="@drawable/field_light"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/chart_location"
+                android:text="@string/section_place"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -180,7 +206,7 @@
                 android:background="@drawable/field_light"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/chart_weather"
+                android:text="@string/section_weather"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -207,7 +233,7 @@
                 android:background="@drawable/field_light"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/calendar_title"
+                android:text="@string/section_calendar"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />

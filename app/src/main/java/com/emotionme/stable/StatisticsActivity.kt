@@ -37,14 +37,16 @@ class StatisticsActivity : AppCompatActivity() {
         val userId = SessionManager.getUser(this)
 
         val moodChart = findViewById<StatsChartView>(R.id.moodChart)
+        val sentimentTrendChart = findViewById<SentimentLineChartView>(R.id.sentimentTrendChart)
         val locationChart = findViewById<StatsChartView>(R.id.locationChart)
         val weatherChart = findViewById<StatsChartView>(R.id.weatherChart)
         val calendarView = findViewById<MoodCalendarView>(R.id.moodCalendar)
-        val btnBackCharts = findViewById<TextView>(R.id.btnBackCharts)
+        val btnBackCharts = findViewById<ImageView>(R.id.btnBackCharts)
         val spinnerMonth = findViewById<Spinner>(R.id.spinnerMonth)
         val spinnerYear = findViewById<Spinner>(R.id.spinnerYear)
         val btnExport = findViewById<MaterialButton>(R.id.btnExportReport)
         val tvMood = findViewById<TextView>(R.id.moodTV)
+        val tvSentiment = findViewById<TextView>(R.id.sentimentTrendTV)
         val tvPlace = findViewById<TextView>(R.id.locationTV)
         val tvWeather = findViewById<TextView>(R.id.weatherTV)
         val tvCalendar = findViewById<TextView>(R.id.calendarTV)
@@ -56,7 +58,14 @@ class StatisticsActivity : AppCompatActivity() {
         tvMood.setOnClickListener {
             Snackbar.make(
                 tvMood,
-                getString(R.string.info5),
+                getString(R.string.info3),
+                Snackbar.LENGTH_SHORT
+            ).show()
+        }
+        tvSentiment.setOnClickListener {
+            Snackbar.make(
+                tvSentiment,
+                getString(R.string.info7),
                 Snackbar.LENGTH_SHORT
             ).show()
         }
@@ -88,7 +97,8 @@ class StatisticsActivity : AppCompatActivity() {
                     resources.getIdentifier(
                         "month$it",
                         "string",
-                        packageName)
+                        packageName
+                    )
                 )
             }
 
@@ -152,6 +162,28 @@ class StatisticsActivity : AppCompatActivity() {
                             .maxByOrNull { it.value }?.key ?: ""
                     }
 
+                // Тренд по тексту: среднее sentimentScore за каждый день месяца.
+                // Дни без записей получают null (см. SentimentLineChartView — не рисуем
+                // ложное значение "0.0", а просто разрываем линию).
+                val daysInMonth = Calendar.getInstance()
+                    .apply { set(currentYear, currentMonth, 1) }
+                    .getActualMaximum(Calendar.DAY_OF_MONTH)
+
+                val avgScoreByDay: Map<Int, Float> = entries
+                    .groupBy { entry ->
+                        Calendar.getInstance()
+                            .apply { timeInMillis = entry.timestamp }
+                            .get(Calendar.DAY_OF_MONTH)
+                    }
+                    .mapValues { (_, dayEntries) ->
+                        dayEntries.map { it.sentimentScore }.average().toFloat()
+                    }
+
+                val sentimentTrend: List<SentimentLineChartView.DayScore> =
+                    (1..daysInMonth).map { day ->
+                        SentimentLineChartView.DayScore(day, avgScoreByDay[day])
+                    }
+
                 currentMoodStats = moodStats
                 currentLocationStats = locationStats
                 currentWeatherStats = weatherStats
@@ -159,6 +191,7 @@ class StatisticsActivity : AppCompatActivity() {
 
                 runOnUiThread {
                     moodChart.setData(moodStats)
+                    sentimentTrendChart.setData(sentimentTrend)
                     locationChart.setData(locationStats)
                     weatherChart.setData(weatherStats)
                     calendarView.setData(currentYear, currentMonth, dominantByDay)
@@ -237,7 +270,10 @@ class StatisticsActivity : AppCompatActivity() {
                     putExtra(Intent.EXTRA_STREAM, shareUri)
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 }
-                startActivity(Intent.createChooser(intent, getString(R.string.share_data)))
+                startActivity(Intent.createChooser(
+                    intent,
+                    getString(
+                    R.string.share_data)))
             }
         }
     }
@@ -249,18 +285,20 @@ class StatisticsActivity : AppCompatActivity() {
             -150f, 150f
         )
             .apply {
-            this.duration = duration; repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.REVERSE; interpolator = AccelerateDecelerateInterpolator()
-        }
+                this.duration = duration; repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE; interpolator =
+                AccelerateDecelerateInterpolator()
+            }
         val animY = ObjectAnimator.ofFloat(
             view,
             "translationY",
             -150f, 150f
         )
             .apply {
-            this.duration = duration + 800; repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.REVERSE; interpolator = AccelerateDecelerateInterpolator()
-        }
+                this.duration = duration + 800; repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.REVERSE; interpolator =
+                AccelerateDecelerateInterpolator()
+            }
         AnimatorSet().apply { playTogether(animX, animY); start() }
     }
 }

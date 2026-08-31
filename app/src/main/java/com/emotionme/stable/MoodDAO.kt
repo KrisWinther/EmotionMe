@@ -66,6 +66,15 @@ interface MoodDAO {
     @Query("SELECT * FROM mood_entries WHERE userId = :userId ORDER BY timestamp DESC")
     fun getAll(userId: Long): List<MoodEntry>
 
+    // Для TextAnalyzer.moodDelta() — сравнение текущей записи с недавней историей
+    @Query("""
+        SELECT sentimentScore FROM mood_entries
+        WHERE userId = :uid
+        ORDER BY timestamp DESC
+        LIMIT :limit
+    """)
+    fun getRecentScores(uid: Long, limit: Int = 7): List<Float>
+
     // AnswersActivity
 
     @Query("SELECT MIN(timestamp) FROM mood_entries WHERE userId = :uid")

@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
     entities = [User::class, MoodEntry::class],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -102,6 +102,21 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        /** 5 -> 6: поля результатов офлайн-анализа текста заметки (TextAnalyzer).
+         *
+         * Новые записи получают значения сразу при сохранении (MainActivity).
+         * Старые записи получают дефолты (0.0 / '' / 'category_other') —
+         * при желании можно догнать их фоновым пересчётом через TextAnalyzer.analyze(note),
+         * но это не обязательно для MVP.
+         */
+        val MIGRATION_5_6 = object : Migration(5, 6) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE mood_entries ADD COLUMN sentimentScore REAL NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE mood_entries ADD COLUMN keywords TEXT NOT NULL DEFAULT ''")
+                db.execSQL("ALTER TABLE mood_entries ADD COLUMN eventCategory TEXT NOT NULL DEFAULT 'category_other'")
+            }
+        }
+
         fun getInstance(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -109,7 +124,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "emotionme_db"
                 )
-                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
                     .build()
                 INSTANCE = instance
                 instance
